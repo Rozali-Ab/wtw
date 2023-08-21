@@ -7,7 +7,6 @@ import App from './components/app/App';
 import { store } from './store';
 import { sampleFilm } from './const';
 
-import './index.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
