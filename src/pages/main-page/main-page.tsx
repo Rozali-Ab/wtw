@@ -1,5 +1,4 @@
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
-import GenresList from '../../components/genres-list/genres-list';
 
 export type TFilmCardInfo = {
     poster: string;
