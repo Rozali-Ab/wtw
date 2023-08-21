@@ -1,7 +1,25 @@
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
 
-function MainPage() {
+export type TFilmCardInfo = {
+    poster: string;
+    title: string;
+    meta: {
+      genre: string;
+      year: number;
+  };
+};
+
+type TMainPage = {
+  filmCardInfo: TFilmCardInfo;
+}
+
+function MainPage({filmCardInfo }: TMainPage) {
   const FILMS_COUNT = 20;
+  const {
+    title,
+    poster,
+    meta: { genre, year },
+  } = filmCardInfo;
 
   return(
     <>
@@ -44,14 +62,14 @@ function MainPage() {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={poster} alt="The Grand Budapest Hotel poster" width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{year}</span>
               </p>
 
               <div className="film-card__buttons">

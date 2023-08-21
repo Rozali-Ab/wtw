@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import App from './components/app/App';
 
 import { store } from './store';
+import { sampleFilm } from './const';
 
 import './index.css';
 
@@ -14,7 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <App film={sampleFilm}/>
     </Provider>
   </React.StrictMode>
 );
