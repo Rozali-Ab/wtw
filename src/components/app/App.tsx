@@ -1,8 +1,8 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import MainPage from '../../pages/main-page/main-page';
+import MainPage from '../../pages/MainPage/MainPage';
 
-import { TFilmCardInfo } from '../../pages/main-page/main-page';
+import { TFilmCardInfo } from '../../pages/MainPage/MainPage';
 
 type TAppProps = {
   film: TFilmCardInfo;
