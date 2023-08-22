@@ -3,11 +3,11 @@ import FilmsList from '../FilmsList/FilmsList';
 import Footer from '../Footer/Footer';
 import ShowMoreBtn from '../ShowMoreBtn/ShowMoreBtn';
 
-type TFilmsCatalog = {
+type FilmsCatalogProps = {
   filmsCount: number;
 }
 
-function FilmsCatalog({filmsCount}: TFilmsCatalog) {
+function FilmsCatalog({filmsCount}: FilmsCatalogProps) {
   return (
     <div className="page-content">
       <section className="catalog">

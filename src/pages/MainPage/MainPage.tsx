@@ -13,12 +13,13 @@ export type TFilmCardInfo = {
   };
 };
 
-type TMainPage = {
+type MainPageProps = {
   filmCardInfo: TFilmCardInfo;
 }
 
-function MainPage({filmCardInfo }: TMainPage) {
-  const FILMS_COUNT = 20;
+const FILMS_COUNT = 20;
+
+function MainPage({filmCardInfo }: MainPageProps) {
   const {
     title,
     poster,

@@ -4,12 +4,12 @@ import MainPage from '../../pages/MainPage/MainPage';
 
 import { TFilmCardInfo } from '../../pages/MainPage/MainPage';
 
-type TAppProps = {
+type AppProps = {
   film: TFilmCardInfo;
 }
 
 
-function App(props: TAppProps) {
+function App(props: AppProps) {
   const { film } = props;
   const router = createBrowserRouter([
     {
