@@ -8,6 +8,7 @@ type TAppProps = {
   film: TFilmCardInfo;
 }
 
+
 function App(props: TAppProps) {
   const { film } = props;
   const router = createBrowserRouter([
