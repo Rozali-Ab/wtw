@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import Layout from '../layout';
 import MainPage from '../../pages/MainPage/MainPage';
 import FilmPage from '../../pages/FilmPage/FilmPage';
-import SignInPage from '../../pages/SignInPage/SignInPage';
+import SignInPage from '../../pages/SignIn/SignIn';
 import PlayerPage from '../../pages/PlayerPage/PlayerPage';
 import AddReviewPage from '../../pages/AddReviewPage/AddReviewPage';
 import MyListPage from '../../pages/MyListPage/MyListPage';
@@ -22,7 +23,8 @@ function App(props: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={ <MainPage filmCardInfo={film}/>}>
+        <Route path={AppRoute.Root} element={ <Layout/>}>
+          <Route index element={ <MainPage filmCardInfo={film}/>}></Route>
           <Route path={AppRoute.Film} element={ <FilmPage />}></Route>
           <Route path={AppRoute.AddReview} element={ <AddReviewPage />}></Route>
           <Route path={AppRoute.MyList} element={ <MyListPage />}></Route>

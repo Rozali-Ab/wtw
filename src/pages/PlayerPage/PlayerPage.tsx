@@ -2,7 +2,9 @@ function PlayerPage() {
   return (
     <div className="player">
       <video src="!#" className="player__video" poster="img/player-poster.jpg" />
-      <button type="button" className="player__exit">Exit</button>
+      <a href="/">
+        <button type="button" className="player__exit">Exit</button>
+      </a>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
