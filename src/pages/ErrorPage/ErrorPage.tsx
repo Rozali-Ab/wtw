@@ -1,8 +1,11 @@
+import Header from '../../components/Header/Header';
+
 function ErrorPage () {
   return (
-    <div>
-      not found
-    </div>
+    <>
+      <Header />
+      <div> page not found</div>
+    </>
   );
 }
 
