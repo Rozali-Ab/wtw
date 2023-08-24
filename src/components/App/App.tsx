@@ -9,6 +9,7 @@ import MyListPage from '../../pages/MyListPage/MyListPage';
 import ErrorPage from '../../pages/ErrorPage/ErrorPage';
 
 import { TFilmCardInfo } from '../../pages/MainPage/MainPage';
+import { AppRoute } from '../../const';
 
 type AppProps = {
   film: TFilmCardInfo;
@@ -21,12 +22,12 @@ function App(props: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={ <MainPage filmCardInfo={film}/>}>
-          <Route path="films/:id" element={ <FilmPage />}></Route>
-          <Route path="films/:id/review" element={ <AddReviewPage />}></Route>
-          <Route path="mylist" element={ <MyListPage />}></Route>
-          <Route path="login" element={ <SignInPage />}></Route>
-          <Route path="player/:id" element={ <PlayerPage />}></Route>
+        <Route path={AppRoute.Root} element={ <MainPage filmCardInfo={film}/>}>
+          <Route path={AppRoute.Film} element={ <FilmPage />}></Route>
+          <Route path={AppRoute.AddReview} element={ <AddReviewPage />}></Route>
+          <Route path={AppRoute.MyList} element={ <MyListPage />}></Route>
+          <Route path={AppRoute.Login} element={ <SignInPage />}></Route>
+          <Route path={AppRoute.Player} element={ <PlayerPage />}></Route>
           <Route path="*" element={ <ErrorPage />}></Route>
         </Route>
       </Routes>
