@@ -1,15 +1,17 @@
+import { Link } from 'react-router-dom';
+
+import Logo from '../Logo/Logo';
+
 function Header() {
   return (
     <header className="page-header">
       <div className="logo">
-        <a className="logo__link" href="!#">
-          <span className="logo__letter logo__letter--1">W</span>
-          <span className="logo__letter logo__letter--2">T</span>
-          <span className="logo__letter logo__letter--3">W</span>
-        </a>
+        <Logo />
       </div>
       <div className="user-block">
-        <a href="sign-in.html" className="user-block__link">Sign in</a>
+        <Link to="login" className="user-block__link">
+          Sign in
+        </Link>
       </div>
     </header>
   );

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function SmallFilmCard() {
   return (
     <article className="small-film-card catalog__films-card">
@@ -10,9 +12,9 @@ function SmallFilmCard() {
         />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">
+        <Link to="/films/:id" className="small-film-card__link">
           Fantastic Beasts: The Crimes of Grindelwald
-        </a>
+        </Link>
       </h3>
     </article>
   );

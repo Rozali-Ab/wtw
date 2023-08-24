@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 
 import Logo from '../../components/Logo/Logo';
 import FilmsCatalog from '../../components/FilmsCatalog/FilmsCatalog';
@@ -48,7 +48,6 @@ function MainPage({filmCardInfo }: MainPageProps) {
               <Link to="login" className="user-block__link">
                 Sign out
               </Link>
-              
             </li>
           </ul>
         </header>
@@ -67,12 +66,14 @@ function MainPage({filmCardInfo }: MainPageProps) {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
+                <Link to="player/:id">
+                  <button className="btn btn--play film-card__button" type="button">
+                    <svg viewBox="0 0 19 19" width="19" height="19">
+                      <use xlinkHref="#play-s"></use>
+                    </svg>
+                    <span>Play</span>
+                  </button>
+                </Link>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -84,7 +85,9 @@ function MainPage({filmCardInfo }: MainPageProps) {
           </div>
         </div>
       </section>
-
+      
+      <Outlet />
+        
       <FilmsCatalog filmsCount={FILMS_COUNT}/>
     </>
   );
