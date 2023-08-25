@@ -1,18 +1,11 @@
-import { Link } from 'react-router-dom';
-
 import Logo from '../Logo/Logo';
+import UserBlock from '../UserBlock/UserBlock';
 
 function Header() {
   return (
     <header className="page-header">
-      <div className="logo">
-        <Logo />
-      </div>
-      <div className="user-block">
-        <Link to="login" className="user-block__link">
-          Sign in
-        </Link>
-      </div>
+      <Logo />
+      <UserBlock />
     </header>
   );
 }
