@@ -8,13 +8,15 @@ import { store } from './store';
 
 import { films } from './mocks/films';
 
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App films={films}/>
+      <App films={films} />
     </Provider>
   </React.StrictMode>
 );

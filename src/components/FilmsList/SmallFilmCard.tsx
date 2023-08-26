@@ -24,7 +24,7 @@ function SmallFilmCard({film}: SmallFilmCardProps) {
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link to={`/films/${id}`} className="small-film-card__link">
+        <Link to={`/films/${id}`} className="small-film-card__link" >
           {name}
         </Link>
       </h3>

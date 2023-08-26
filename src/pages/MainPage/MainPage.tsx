@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import FilmsCatalog from '../../components/FilmsCatalog/FilmsCatalog';
-import FilmCard from '../../components/FilmCard/FilmCard';
+import FilmCard from '../../components/FilmCard/FilmCardPreview';
 import { TFilm } from '../../types/film';
 import { PageTitles } from '../../const';
 

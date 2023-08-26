@@ -26,7 +26,7 @@ function App({films}: AppProps) {
         <Routes>
           <Route path={AppRoute.Root} element={ <Layout/>}>
             <Route index element={ <MainPage films={films} />} />
-            <Route path={AppRoute.Film} element={ <FilmPage />} />
+            <Route path={AppRoute.Film} element={ <FilmPage films={films}/>} />
             <Route path={AppRoute.History} 
               element={ 
                 <PrivateRoute authStatus={AuthStatus.Auth}>
