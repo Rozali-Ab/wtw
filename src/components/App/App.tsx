@@ -45,7 +45,7 @@ function App({films}: AppProps) {
             <Route path={AppRoute.Player} 
               element={
                 <PrivateRoute authStatus={AuthStatus.Auth}>
-                  <PlayerPage />
+                  <PlayerPage film={films[0]}/>
                 </PrivateRoute>
               } 
             />

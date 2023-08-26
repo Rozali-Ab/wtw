@@ -3,14 +3,19 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 
 import { AppRoute, PageTitles } from '../../const';
-function PlayerPage() {
+import { TFilm } from '../../types/film';
+
+type PlayerPageProps = {
+  film: TFilm;
+}
+function PlayerPage({film: {previewImage, videoLink}}: PlayerPageProps) {
   return (
     <Fragment>
       <Helmet>
         <title>{PageTitles.Player}</title>
       </Helmet>
       <div className="player">
-        <video src="!#" className="player__video" poster="img/player-poster.jpg" />
+        <video src={videoLink} className="player__video" poster={previewImage} />
         <Link to={AppRoute.Root}>
           <button type="button" className="player__exit">Exit</button>
         </Link>
