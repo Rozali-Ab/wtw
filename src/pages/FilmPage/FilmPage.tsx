@@ -1,8 +1,6 @@
 function FilmPage () {
   return (
-    <div>
-      Film page info
-    </div>
+    <div>Film Page</div>
   );
 }
 

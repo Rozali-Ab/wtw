@@ -12,8 +12,8 @@ export enum AppRoute {
   Login = '/login',
   Player = '/player/:id',
   Film = '/films/:id',
-  MyList = '/mylist',
-  AddReview = '/films/:id/review',
+  Favorites = '/favorites',
+  History = '/history',
 }
 
 export enum AuthStatus {

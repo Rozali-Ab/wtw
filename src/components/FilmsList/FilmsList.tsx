@@ -1,13 +1,15 @@
+import { TFilm } from '../../types/film';
+
 import SmallFilmCard from './SmallFilmCard';
 
-type TFilmsList = {
-  filmsCount: number;
+type FilmsListProps = {
+  films: TFilm[];
 }
-function FilmsList({filmsCount}: TFilmsList) {
+function FilmsList({films}: FilmsListProps) {
   return (
     <div className="catalog__films-list">    
-      {Array.from({ length: filmsCount }, (_, i) => (
-        <SmallFilmCard key={i} />
+      {films.map((film) => (
+        <SmallFilmCard key={film.id} film={film} />
       ))}
     </div>
   );

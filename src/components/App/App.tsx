@@ -5,46 +5,45 @@ import MainPage from '../../pages/MainPage/MainPage';
 import FilmPage from '../../pages/FilmPage/FilmPage';
 import SignInPage from '../../pages/SignIn/SignIn';
 import PlayerPage from '../../pages/PlayerPage/PlayerPage';
-import AddReviewPage from '../../pages/AddReviewPage/AddReviewPage';
-import MyListPage from '../../pages/MyListPage/MyListPage';
+import HistoryPage from '../../pages/HistoryPage/HistoryPage';
+import FavoritesPage from '../../pages/FavoritesPage/FavoritesPage';
 import ErrorPage from '../../pages/ErrorPage/ErrorPage';
 
-import { TFilmCardInfo } from '../../pages/MainPage/MainPage';
 import { AppRoute, AuthStatus } from '../../const';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import { TFilm } from '../../types/film';
 
 type AppProps = {
-  film: TFilmCardInfo;
+  films: TFilm[];
 }
 
 
-function App(props: AppProps) {
-  const { film } = props;
+function App({films}: AppProps) {
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root} element={ <Layout/>}>
-          <Route index element={ <MainPage filmCardInfo={film}/>} />
+          <Route index element={ <MainPage films={films} />} />
           <Route path={AppRoute.Film} element={ <FilmPage />} />
-          <Route path={AppRoute.AddReview} 
+          <Route path={AppRoute.History} 
             element={ 
               <PrivateRoute authStatus={AuthStatus.NoAuth}>
-                <AddReviewPage />
+                <HistoryPage />
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.MyList} 
+          <Route path={AppRoute.Favorites} 
             element={ 
-              <PrivateRoute authStatus={AuthStatus.NoAuth}>
-                <MyListPage />
+              <PrivateRoute authStatus={AuthStatus.Auth}>
+                <FavoritesPage />
               </PrivateRoute>
             } 
           />
           <Route path={AppRoute.Login} element={ <SignInPage />} />
           <Route path={AppRoute.Player} 
             element={
-              <PrivateRoute authStatus={AuthStatus.NoAuth}>
+              <PrivateRoute authStatus={AuthStatus.Auth}>
                 <PlayerPage />
               </PrivateRoute>
             } 

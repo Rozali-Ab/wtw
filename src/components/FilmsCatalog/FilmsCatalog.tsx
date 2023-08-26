@@ -3,16 +3,18 @@ import FilmsList from '../FilmsList/FilmsList';
 import Footer from '../Footer/Footer';
 import ShowMoreBtn from '../ShowMoreBtn/ShowMoreBtn';
 
+import { TFilm } from '../../types/film';
+
 type FilmsCatalogProps = {
-  filmsCount: number;
+  films: TFilm[];
 }
 
-function FilmsCatalog({filmsCount}: FilmsCatalogProps) {
+function FilmsCatalog({films}: FilmsCatalogProps) {
   return (
     <div className="page-content">
       <section className="catalog">
         <GenresList />
-        <FilmsList filmsCount={filmsCount}/>
+        <FilmsList films={films}/>
         <ShowMoreBtn />
       </section>
       <Footer />
