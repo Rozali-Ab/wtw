@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 
 import Layout from '../layout';
 import MainPage from '../../pages/MainPage/MainPage';
 import FilmPage from '../../pages/FilmPage/FilmPage';
-import SignInPage from '../../pages/SignIn/SignIn';
+import SignInPage from '../../pages/SignInPage/SignInPage';
 import PlayerPage from '../../pages/PlayerPage/PlayerPage';
 import HistoryPage from '../../pages/HistoryPage/HistoryPage';
 import FavoritesPage from '../../pages/FavoritesPage/FavoritesPage';
@@ -17,40 +18,41 @@ type AppProps = {
   films: TFilm[];
 }
 
-
 function App({films}: AppProps) {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path={AppRoute.Root} element={ <Layout/>}>
-          <Route index element={ <MainPage films={films} />} />
-          <Route path={AppRoute.Film} element={ <FilmPage />} />
-          <Route path={AppRoute.History} 
-            element={ 
-              <PrivateRoute authStatus={AuthStatus.NoAuth}>
-                <HistoryPage />
-              </PrivateRoute>
-            }
-          />
-          <Route path={AppRoute.Favorites} 
-            element={ 
-              <PrivateRoute authStatus={AuthStatus.Auth}>
-                <FavoritesPage />
-              </PrivateRoute>
-            } 
-          />
-          <Route path={AppRoute.Login} element={ <SignInPage />} />
-          <Route path={AppRoute.Player} 
-            element={
-              <PrivateRoute authStatus={AuthStatus.Auth}>
-                <PlayerPage />
-              </PrivateRoute>
-            } 
-          />
-          <Route path="*" element={ <ErrorPage />} />
-        </Route>
-      </Routes>
+      <HelmetProvider>
+        <Routes>
+          <Route path={AppRoute.Root} element={ <Layout/>}>
+            <Route index element={ <MainPage films={films} />} />
+            <Route path={AppRoute.Film} element={ <FilmPage />} />
+            <Route path={AppRoute.History} 
+              element={ 
+                <PrivateRoute authStatus={AuthStatus.Auth}>
+                  <HistoryPage />
+                </PrivateRoute>
+              }
+            />
+            <Route path={AppRoute.Favorites} 
+              element={ 
+                <PrivateRoute authStatus={AuthStatus.Auth}>
+                  <FavoritesPage />
+                </PrivateRoute>
+              } 
+            />
+            <Route path={AppRoute.Login} element={ <SignInPage />} />
+            <Route path={AppRoute.Player} 
+              element={
+                <PrivateRoute authStatus={AuthStatus.Auth}>
+                  <PlayerPage />
+                </PrivateRoute>
+              } 
+            />
+            <Route path="*" element={ <ErrorPage />} />
+          </Route>
+        </Routes>
+      </HelmetProvider>
     </BrowserRouter>
   );
 }

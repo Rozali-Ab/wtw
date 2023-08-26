@@ -1,6 +1,16 @@
+import { Fragment } from 'react';
+import { Helmet } from 'react-helmet-async';
+
+import { PageTitles } from '../../const';
+
 function FilmPage () {
   return (
-    <div>Film Page</div>
+    <Fragment>
+      <Helmet>
+        <title>{PageTitles.Film}</title>
+      </Helmet>
+      <div>Film Page</div>
+    </Fragment>
   );
 }
 

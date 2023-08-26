@@ -1,6 +1,16 @@
+import { Fragment } from 'react';
+import { Helmet } from 'react-helmet-async';
+
+import { PageTitles } from '../../const';
+
 function HistoryPage() {
   return (
-    <div>HistoryPage</div>
+    <Fragment>
+      <Helmet>
+        <title>{PageTitles.History}</title>
+      </Helmet>
+      <div>HistoryPage</div>
+    </Fragment>
   );
 }
   
