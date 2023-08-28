@@ -12,14 +12,12 @@ import ErrorPage from '../../pages/ErrorPage/ErrorPage';
 
 import { AppRoute, AuthStatus } from '../../const';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import { TFilm } from '../../types/film';
+import { useAppSelector } from '../../hooks';
 
-type AppProps = {
-  films: TFilm[];
-}
 
-function App({films}: AppProps) {
-
+function App() {
+  const films = useAppSelector((state) => state.films);
+  
   return (
     <BrowserRouter>
       <HelmetProvider>
