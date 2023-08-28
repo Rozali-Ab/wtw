@@ -13,7 +13,7 @@ function FilmsCatalog({films}: FilmsCatalogProps) {
   return (
     <div className="page-content">
       <section className="catalog">
-        <GenresList />
+        <GenresList films={films}/>
         <FilmsList films={films}/>
         <ShowMoreBtn />
       </section>
