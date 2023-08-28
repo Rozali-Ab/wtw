@@ -35,3 +35,6 @@ export enum PageTitles {
   Search = 'Search',
   NotFound = 'Page not found',
 }
+
+export const DEFAULT_NAME_GENRE = 'All genres';
+export const MAX_FILMS_GENRES = 10;
