@@ -9,6 +9,7 @@ import PlayerPage from '../../pages/PlayerPage/PlayerPage';
 import HistoryPage from '../../pages/HistoryPage/HistoryPage';
 import FavoritesPage from '../../pages/FavoritesPage/FavoritesPage';
 import ErrorPage from '../../pages/ErrorPage/ErrorPage';
+import Loader from '../Loader/Loader';
 
 import { AppRoute, AuthStatus } from '../../const';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
@@ -16,8 +17,13 @@ import { useAppSelector } from '../../hooks';
 
 
 function App() {
+  const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
   const films = useAppSelector((state) => state.films);
-  
+
+  if (isFilmsLoading) {
+    return ( <Loader />);
+  }
+
   return (
     <BrowserRouter>
       <HelmetProvider>

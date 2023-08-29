@@ -1,23 +1,47 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { films } from '../mocks/films';
-import { DEFAULT_NAME_GENRE } from '../const';
+import { AuthStatus, DEFAULT_NAME_GENRE } from '../const';
+import { TFilm} from '../types/film';
+import { UserData } from '../types/userData';
 
-import { changeCurrentGenre, getAllFilms } from './action';
+import { setCurrentGenre, fetchFilms, fetchUserStatus, loginUser} from './action';
 
+export type TInitialState = {
+  currentGenre: string;
+  films: TFilm[];
+  authorizationStatus: AuthStatus;
+  isFilmsLoading: boolean;
+  user: UserData['email'];
+}
 
 const initialState = {
   currentGenre: DEFAULT_NAME_GENRE,
-  films,
+  films: [],
+  authorizationStatus: AuthStatus.Unknown,
+  isFilmsLoading: false,
+  user: ''
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(changeCurrentGenre, (state, action) => {
-    state.currentGenre = action.payload;
-  });
-  builder.addCase(getAllFilms, (state, action) => {
-    state.films = action.payload;
-  });
+  builder
+    .addCase(setCurrentGenre, (state, action) => {
+      state.currentGenre = action.payload;
+    })
+    .addCase(fetchFilms.pending, (state) => {
+      state.isFilmsLoading = true;
+    })
+    .addCase(fetchFilms.fulfilled, (state, action) => {
+      state.films = action.payload;
+      state.isFilmsLoading = false;
+    })
+    .addCase(fetchUserStatus.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.isFilmsLoading = false;
+    })
+    .addCase(loginUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.authorizationStatus = AuthStatus.Auth;
+    });
 });
 
 export {reducer};

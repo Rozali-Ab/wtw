@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { changeCurrentGenre } from '../../store/action';
+import { setCurrentGenre } from '../../store/action';
 
 import { TFilm } from '../../types/film';
 import { useAppDispatch } from '../../hooks';
@@ -21,7 +21,7 @@ function GenresList({films}: GenresListProps) {
   const handleGenreClick = (genre: string) => (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     setActive(genre);
-    dispatch(changeCurrentGenre(genre));
+    dispatch(setCurrentGenre(genre));
   };
   
   return (
