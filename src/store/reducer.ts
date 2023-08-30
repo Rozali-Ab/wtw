@@ -35,7 +35,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.isFilmsLoading = false;
     })
     .addCase(fetchUserStatus.fulfilled, (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload.email;
       state.isFilmsLoading = false;
     })
     .addCase(loginUser.fulfilled, (state, action) => {
