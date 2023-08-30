@@ -9,6 +9,7 @@ import PlayerPage from '../../pages/PlayerPage/PlayerPage';
 import HistoryPage from '../../pages/HistoryPage/HistoryPage';
 import FavoritesPage from '../../pages/FavoritesPage/FavoritesPage';
 import ErrorPage from '../../pages/ErrorPage/ErrorPage';
+import SearchPage from '../../pages/SearchPage/SearchPage';
 import Loader from '../Loader/Loader';
 
 import { AppRoute, AuthStatus } from '../../const';
@@ -53,6 +54,7 @@ function App() {
                 </PrivateRoute>
               } 
             />
+            <Route path={AppRoute.Search} element={ <SearchPage />} />
             <Route path="*" element={ <ErrorPage />} />
           </Route>
         </Routes>

@@ -31,6 +31,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.isFilmsLoading = true;
     })
     .addCase(fetchFilms.fulfilled, (state, action) => {
+      //@ts-ignore временно
       state.films = action.payload;
       state.isFilmsLoading = false;
     })
