@@ -9,16 +9,21 @@ import PlayerPage from '../../pages/PlayerPage/PlayerPage';
 import HistoryPage from '../../pages/HistoryPage/HistoryPage';
 import FavoritesPage from '../../pages/FavoritesPage/FavoritesPage';
 import ErrorPage from '../../pages/ErrorPage/ErrorPage';
+import SearchPage from '../../pages/SearchPage/SearchPage';
+import Loader from '../Loader/Loader';
 
 import { AppRoute, AuthStatus } from '../../const';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import { TFilm } from '../../types/film';
+import { useAppSelector } from '../../hooks';
 
-type AppProps = {
-  films: TFilm[];
-}
 
-function App({films}: AppProps) {
+function App() {
+  const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
+  const films = useAppSelector((state) => state.films);
+
+  if (isFilmsLoading) {
+    return ( <Loader />);
+  }
 
   return (
     <BrowserRouter>
@@ -49,6 +54,7 @@ function App({films}: AppProps) {
                 </PrivateRoute>
               } 
             />
+            <Route path={AppRoute.Search} element={ <SearchPage />} />
             <Route path="*" element={ <ErrorPage />} />
           </Route>
         </Routes>
