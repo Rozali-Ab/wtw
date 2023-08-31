@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { useAppSelector } from '../../hooks';
@@ -11,21 +11,13 @@ function SearchPage() {
   const films: TFilm[] = useAppSelector((state) => state.films);
   const [searchResults, setSearchResults] = useState<TFilm[]>([]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuery = e.target.value;
-    setSearchQuery(newQuery);
-  };
+  const filteredFilms: TFilm[] = films.filter((film) => film.name.toLocaleLowerCase().includes(searchQuery.toLowerCase()));
 
-  useEffect(() => {
-    if (searchQuery.length >= 3) {
-      const filteredFilms: TFilm[] = films.filter((film) =>
-        film.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setSearchResults(filteredFilms);
-    } else {
-      setSearchResults([]);
-    }
-  }, [searchQuery, films]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchQuery = e.target.value;
+    setSearchQuery(searchQuery);
+    setSearchResults(filteredFilms);
+  };
 
   return (
     <>

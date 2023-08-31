@@ -14,7 +14,7 @@ export type TInitialState = {
   user: UserData['email'];
 }
 
-const initialState = {
+const initialState: TInitialState = {
   currentGenre: DEFAULT_NAME_GENRE,
   films: [],
   authorizationStatus: AuthStatus.Unknown,
@@ -31,7 +31,6 @@ const reducer = createReducer(initialState, (builder) => {
       state.isFilmsLoading = true;
     })
     .addCase(fetchFilms.fulfilled, (state, action) => {
-      //@ts-ignore временно
       state.films = action.payload;
       state.isFilmsLoading = false;
     })
