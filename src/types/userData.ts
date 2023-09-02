@@ -10,3 +10,5 @@ export type AuthData = {
   email: string;
   password: string;
 };
+
+export type UserAuth = Pick<UserData, 'email'> & { password: string };

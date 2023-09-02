@@ -6,6 +6,7 @@ export enum ApiRoute {
 export enum AppRoute {
   Root = '/',
   Login = '/login',
+  Logout = '/logout',
   SignUp = '/signup',
   Player = '/player/:id',
   Film = '/films/:id',

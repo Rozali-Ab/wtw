@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import { createAPI } from '../api';
+import history from '../history';
 
 import { reducer } from './reducer';
+import { redirect } from './redirect';
 import { fetchFilms, fetchUserStatus } from './action';
 
 const api = createAPI();
@@ -11,9 +13,12 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
-        extraArgument: api,
+        extraArgument: {
+          api,
+          history
+        },
       },
-    }),
+    }).concat(redirect),
 });
 
 store.dispatch(fetchFilms());

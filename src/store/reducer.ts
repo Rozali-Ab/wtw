@@ -4,14 +4,15 @@ import { AuthStatus, DEFAULT_NAME_GENRE } from '../const';
 import { TFilm} from '../types/film';
 import { UserData } from '../types/userData';
 
-import { setCurrentGenre, fetchFilms, fetchUserStatus, loginUser} from './action';
+import { setCurrentGenre, fetchFilms, fetchUserStatus, loginUser, logoutUser} from './action';
+
 
 export type TInitialState = {
   currentGenre: string;
   films: TFilm[];
   authorizationStatus: AuthStatus;
   isFilmsLoading: boolean;
-  user: UserData['email'];
+  user: UserData | null;
 }
 
 const initialState: TInitialState = {
@@ -19,7 +20,7 @@ const initialState: TInitialState = {
   films: [],
   authorizationStatus: AuthStatus.Unknown,
   isFilmsLoading: false,
-  user: ''
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -35,12 +36,22 @@ const reducer = createReducer(initialState, (builder) => {
       state.isFilmsLoading = false;
     })
     .addCase(fetchUserStatus.fulfilled, (state, action) => {
-      state.user = action.payload.email;
+      state.user = action.payload;
       state.isFilmsLoading = false;
+    })
+    .addCase(fetchUserStatus.rejected, (state) => {
+      state.authorizationStatus = AuthStatus.NoAuth;
     })
     .addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload;
       state.authorizationStatus = AuthStatus.Auth;
+    })
+    .addCase(loginUser.rejected, (state) => {
+      state.authorizationStatus = AuthStatus.NoAuth;
+    })
+    .addCase(logoutUser.fulfilled, (state) => {
+      state.authorizationStatus = AuthStatus.NoAuth;
+      state.user = null;
     });
 });
 

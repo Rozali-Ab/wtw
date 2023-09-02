@@ -1,6 +1,7 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
+import { useAppSelector } from '../../hooks';
 import Layout from '../layout';
 import MainPage from '../../pages/MainPage/MainPage';
 import FilmPage from '../../pages/FilmPage/FilmPage';
@@ -11,22 +12,22 @@ import FavoritesPage from '../../pages/FavoritesPage/FavoritesPage';
 import ErrorPage from '../../pages/ErrorPage/ErrorPage';
 import SearchPage from '../../pages/SearchPage/SearchPage';
 import Loader from '../Loader/Loader';
-
-import { AppRoute, AuthStatus } from '../../const';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import { useAppSelector } from '../../hooks';
-
+import HistoryRouter from '../HistoryRoute/HistoryRoute';
+import history from '../../history';
+import { AppRoute } from '../../const';
 
 function App() {
   const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
   const films = useAppSelector((state) => state.films);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   if (isFilmsLoading) {
     return ( <Loader />);
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={history}>
       <HelmetProvider>
         <Routes>
           <Route path={AppRoute.Root} element={ <Layout/>}>
@@ -34,14 +35,14 @@ function App() {
             <Route path={AppRoute.Film} element={ <FilmPage films={films}/>} />
             <Route path={AppRoute.History} 
               element={ 
-                <PrivateRoute authStatus={AuthStatus.Auth}>
+                <PrivateRoute authStatus={authorizationStatus}>
                   <HistoryPage />
                 </PrivateRoute>
               }
             />
             <Route path={AppRoute.Favorites} 
               element={ 
-                <PrivateRoute authStatus={AuthStatus.Auth}>
+                <PrivateRoute authStatus={authorizationStatus}>
                   <FavoritesPage />
                 </PrivateRoute>
               } 
@@ -49,7 +50,7 @@ function App() {
             <Route path={AppRoute.Login} element={ <SignInPage />} />
             <Route path={AppRoute.Player} 
               element={
-                <PrivateRoute authStatus={AuthStatus.Auth}>
+                <PrivateRoute authStatus={authorizationStatus}>
                   <PlayerPage film={films[0]}/>
                 </PrivateRoute>
               } 
@@ -59,7 +60,7 @@ function App() {
           </Route>
         </Routes>
       </HelmetProvider>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

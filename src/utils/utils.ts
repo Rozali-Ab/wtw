@@ -6,7 +6,7 @@ export function formatRuntime(minutes: number): string {
 }
 
 export class Token {
-  private static _name: string = process.env.AUTH_TOKEN_KEY_NAME || '';
+  private static _name: string = 'wtw-token' || '';
 
   static get() {
     const token = localStorage.getItem(this._name);
@@ -14,7 +14,7 @@ export class Token {
     return token ?? '';
   }
 
-  static save(token: string) {
+  static save(token: string):void {
     localStorage.setItem(this._name, token);
   }
 
