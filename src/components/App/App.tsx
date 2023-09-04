@@ -11,6 +11,7 @@ import HistoryPage from '../../pages/HistoryPage/HistoryPage';
 import FavoritesPage from '../../pages/FavoritesPage/FavoritesPage';
 import ErrorPage from '../../pages/ErrorPage/ErrorPage';
 import SearchPage from '../../pages/SearchPage/SearchPage';
+import SignUnPage from '../../pages/SignUpPage/SignUpPage';
 import Loader from '../Loader/Loader';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import HistoryRouter from '../HistoryRoute/HistoryRoute';
@@ -48,6 +49,7 @@ function App() {
               } 
             />
             <Route path={AppRoute.Login} element={ <SignInPage />} />
+            <Route path={AppRoute.SignUp} element={ <SignUnPage />} />
             <Route path={AppRoute.Player} 
               element={
                 <PrivateRoute authStatus={authorizationStatus}>

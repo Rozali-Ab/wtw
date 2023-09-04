@@ -12,7 +12,7 @@ import { AuthStatus } from '../../const';
 import type { FormEvent } from 'react';
 
 
-function SignUnPage () {
+function SignInPage () {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((store) => store.authorizationStatus);
 
@@ -33,7 +33,7 @@ function SignUnPage () {
   return (
     <Fragment>
       <Helmet>
-        <title>{PageTitles.Login}</title>
+        <title>{PageTitles.SignUp}</title>
       </Helmet>
       <div className="user-page">
         <div className="sign-in user-page__content">
@@ -54,11 +54,11 @@ function SignUnPage () {
               </div>
             </div>
             <div className="sign-in__submit">
-              <button className="sign-in__btn" type="submit">Sign in</button>
+              <button className="sign-in__btn" type="submit">Sign up</button>
             </div>
           </form>
-          <Link to={AppRoute.SignUp} className="small-film-card__link"> 
-            Have no an account?
+          <Link to={AppRoute.Login} className="small-film-card__link"> 
+            Already have an account?
           </Link>
         </div>
       </div>
@@ -66,4 +66,4 @@ function SignUnPage () {
   );
 }
 
-export default SignUnPage;
+export default SignInPage;

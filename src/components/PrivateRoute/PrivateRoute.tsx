@@ -9,12 +9,10 @@ type PrivateRouteProps = {
 
 function PrivateRoute(props: PrivateRouteProps) {
   const { authStatus, children } = props;
+  const isAuth = authStatus === AuthStatus.Auth;
 
-  return (
-    authStatus === AuthStatus.Auth
-      ? children
-      : <Navigate to={AppRoute.Login} />
-  );
+
+  return isAuth ? children : <Navigate to={AppRoute.Login} />;
 }
 
 export default PrivateRoute;

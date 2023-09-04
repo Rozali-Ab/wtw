@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { TFilm } from '../../types/film';
-import Header from '../Header/Header';
 
 import FilmCardNavigation from './FilmCardInfo/FilmCardNavigation';
 import FilmCardOverview from './FilmCardInfo/FilmCardOverview';
@@ -29,10 +28,7 @@ function FilmCardFull({film}: FilmCardFullProps) {
         <div className="film-card__bg">
           <img src={backgroundImage} alt={name} />
         </div>
-        <h1 className="visually-hidden">WTW</h1>
-        
-        <Header />
-        
+              
         <div className="film-card__wrap">
           <div className="film-card__desc">
             <h2 className="film-card__title">{name}</h2>

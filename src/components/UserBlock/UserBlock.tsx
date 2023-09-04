@@ -18,6 +18,16 @@ function UserBlock() {
     <ul className="user-block">
       {isAuth ? (
         <>
+          <li>
+            <Link className="user-block__link" to={AppRoute.Search}>
+              Search
+            </Link>
+          </li>
+          <li>
+            <Link className="user-block__link" to={AppRoute.Favorites}>
+            Favorites
+            </Link>
+          </li>
           <li className="user-block__item">
             <div className="user-block__avatar">
               <img src={user?.avatarUrl} alt="User avatar" width="63" height="63" />
@@ -34,9 +44,11 @@ function UserBlock() {
           </li>
         </>
       ) : (
-        <Link className="user-block__link" to={AppRoute.Login}>
-          Sign in
-        </Link>
+        <li>
+          <Link className="user-block__link" to={AppRoute.Login}>
+            Sign in
+          </Link>
+        </li>
       )}
     </ul>
   );
