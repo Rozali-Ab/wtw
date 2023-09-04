@@ -1,0 +1,15 @@
+.small-film-card__mylist {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 2;
+}
+
+.btn--list-min {
+  min-width: auto;
+  padding: 10px 13px;
+}
+.btn--list-min svg {
+  margin: 0 auto;
+}
+
