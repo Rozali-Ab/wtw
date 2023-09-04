@@ -4,12 +4,23 @@ import { AuthStatus, DEFAULT_NAME_GENRE } from '../const';
 import { TFilm} from '../types/film';
 import { UserData } from '../types/userData';
 
-import { setCurrentGenre, fetchFilms, fetchUserStatus, loginUser, logoutUser} from './action';
+import { 
+  setCurrentGenre,
+  fetchFilms,
+  fetchFilm,
+  fetchFavoriteFilms,
+  postFavoriteFilms,
+  fetchUserStatus,
+  loginUser,
+  logoutUser} from './action';
 
 
 export type TInitialState = {
   currentGenre: string;
   films: TFilm[];
+  favorite: TFilm[];
+  currentFilm: TFilm | null;
+  currentFilmLoadingEnd: boolean;
   authorizationStatus: AuthStatus;
   isFilmsLoading: boolean;
   user: UserData | null;
@@ -18,6 +29,9 @@ export type TInitialState = {
 const initialState: TInitialState = {
   currentGenre: DEFAULT_NAME_GENRE,
   films: [],
+  favorite: [],
+  currentFilm: null,
+  currentFilmLoadingEnd: false,
   authorizationStatus: AuthStatus.Unknown,
   isFilmsLoading: false,
   user: null,
@@ -30,6 +44,26 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchFilms.pending, (state) => {
       state.isFilmsLoading = true;
+    })
+    .addCase(fetchFilm.fulfilled, (state, action) => {
+      state.currentFilm = action.payload;
+      state.currentFilmLoadingEnd = true;
+    })
+    .addCase(fetchFilm.pending, (state) => {
+      state.currentFilmLoadingEnd = false;
+    })
+    .addCase(fetchFilm.rejected, (state) => {
+      state.currentFilmLoadingEnd = true;
+    })
+    .addCase(fetchFavoriteFilms.fulfilled, (state, action) => {
+      state.favorite = action.payload;
+    })
+    .addCase(postFavoriteFilms.fulfilled, (state, {payload: film}) => {
+      const { id, isFavorite } = film;
+      const stateFilms = state.favorite;
+      state.favorite = isFavorite
+        ? [...stateFilms, film]
+        : stateFilms.filter((film) => film.id !== id); 
     })
     .addCase(fetchFilms.fulfilled, (state, action) => {
       state.films = action.payload;
