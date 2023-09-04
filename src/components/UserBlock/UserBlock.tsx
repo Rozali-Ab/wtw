@@ -20,7 +20,7 @@ function UserBlock() {
         <>
           <li>
             <Link className="user-block__link" to={AppRoute.Search}>
-              Search
+              Search||
             </Link>
           </li>
           <li>
