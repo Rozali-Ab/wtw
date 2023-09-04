@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { Fragment } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { loginUser } from '../../store/action';
+import { registerUser } from '../../store/action';
 import { AppRoute, PageTitles } from '../../const';
 import { AuthData } from '../../types/userData';
 import { AuthStatus } from '../../const';
@@ -23,7 +23,7 @@ function SignInPage () {
     const formData = new FormData(form) as Iterable<[AuthData]>;
     const data = Object.fromEntries(formData);
     
-    dispatch(loginUser(data));
+    dispatch(registerUser(data));
   };
 
   if (authorizationStatus === AuthStatus.Auth) {
