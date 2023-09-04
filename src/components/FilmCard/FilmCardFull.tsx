@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
+import { AppRoute } from '../../const';
 import { TFilm } from '../../types/film';
+import MyListButton from '../MyListButton/MyListButton';
 
 import FilmCardNavigation from './FilmCardInfo/FilmCardNavigation';
 import FilmCardOverview from './FilmCardInfo/FilmCardOverview';
@@ -15,6 +18,7 @@ function FilmCardFull({film}: FilmCardFullProps) {
   const [activeComponent, setActiveComponent] = useState('overview');
 
   const {
+    id,
     name,
     posterImage,
     backgroundImage,
@@ -32,23 +36,26 @@ function FilmCardFull({film}: FilmCardFullProps) {
         <div className="film-card__wrap">
           <div className="film-card__desc">
             <h2 className="film-card__title">{name}</h2>
+            <MyListButton className="small-film-card__mylist" id={id} min />
             <p className="film-card__meta">
               <span className="film-card__genre">{genre}</span>
               <span className="film-card__year">{released}</span>
             </p>
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
-                <svg viewBox="0 0 19 19" width={19} height={19}>
-                  <use xlinkHref="#play-s" />
-                </svg>
-                <span>Play</span>
-              </button>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width={19} height={20}>
-                  <use xlinkHref="#add" />
-                </svg>
-                <span>My list</span>
-              </button>
+              <Link to={`/player/${id}`} className="btn film-card__button">
+                <button className="btn btn--play film-card__button" type="button">
+                  <svg viewBox="0 0 19 19" width={19} height={19}>
+                    <use xlinkHref="#play-s" />
+                  </svg>
+                  <span>Play</span>
+                </button>
+              </Link>
+              <Link to={`${AppRoute.Favorites}`} className="btn film-card__button">
+                <button className="btn btn--list film-card__button" type="button">
+                  
+                  <span>My list </span>
+                </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { useAppSelector } from '../../hooks';
-import Header from '../../components/Header/Header';
 import FilmsList from '../../components/FilmsList/FilmsList';
 import { TFilm } from '../../types/film';
 
@@ -25,7 +24,6 @@ function SearchPage() {
         <title>Search</title>
       </Helmet>
       <div className="user-page">
-        <Header />
         <div className="page-content">
           <section className="catalog">
             <p>

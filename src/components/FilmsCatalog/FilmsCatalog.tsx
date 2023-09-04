@@ -1,6 +1,5 @@
 import GenresList from '../GenresList/GenresList';
 import FilmsList from '../FilmsList/FilmsList';
-import Footer from '../Footer/Footer';
 import { useAppSelector } from '../../hooks';
 import { TFilm } from '../../types/film';
 import { DEFAULT_NAME_GENRE } from '../../const';
@@ -21,9 +20,7 @@ function FilmsCatalog({films}: FilmsCatalogProps) {
       <section className="catalog">
         <GenresList films={films}/>
         <FilmsList films={sortedFilms} maxFilms={8} withWhowMoreBtn/>
-
       </section>
-      <Footer />
     </div>
   );
 }

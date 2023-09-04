@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import Header from '../Header/Header';
-
+import { AppRoute } from '../../const';
 import { TFilm } from '../../types/film';
 
 type FilmCardProps = {
@@ -24,8 +23,6 @@ function FilmCard({film}: FilmCardProps) {
         <img src={backgroundImage} alt={name} />
       </div>
       <h1 className="visually-hidden">WTW</h1>
-      
-      <Header />
 
       <div className="film-card__wrap">
         <div className="film-card__info">
@@ -47,7 +44,7 @@ function FilmCard({film}: FilmCardProps) {
                   <span>Play</span>
                 </button>
               </Link>
-              <Link to="favorites" className="btn film-card__button">
+              <Link to={`${AppRoute.Favorites}`} className="btn film-card__button">
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width={19} height={20}>
                     <use xlinkHref="#add" />

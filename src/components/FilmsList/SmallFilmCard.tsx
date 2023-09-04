@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import MyListButton from '../MyListButton/MyListButton';
 import Player from '../Player/Player';
 import { TFilm } from '../../types/film';
 
@@ -30,22 +31,24 @@ function SmallFilmCard({ film, playing, onMouseOver, onMouseLeave }: SmallFilmCa
       onMouseOver={() => onMouseOver(id)}
       onMouseLeave={onMouseLeave}
     >
-      <div className="small-film-card__image">
-        <Player
-          poster={previewImage}
-          src={previewVideoLink}
-          width={ImageSize.Width}
-          height={ImageSize.Height}
-          playing={playing}
-          loop
-          muted
-        />
-      </div>
-      <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>
+      <MyListButton className="small-film-card__mylist" id={id} min />
+      <Link className="small-film-card__link" to={`/films/${id}`}>
+         
+        <div className="small-film-card__image">
+          <Player
+            poster={previewImage}
+            src={previewVideoLink}
+            width={ImageSize.Width}
+            height={ImageSize.Height}
+            playing={playing}
+            loop
+            muted
+          />
+        </div>
+        <h3 className="small-film-card__title">
           {name}
-        </Link>
-      </h3>
+        </h3>
+      </Link>
     </article>
   );
 }

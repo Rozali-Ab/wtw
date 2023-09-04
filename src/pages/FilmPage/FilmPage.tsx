@@ -3,7 +3,6 @@ import { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import FilmCardFull from '../../components/FilmCard/FilmCardFull';
-import { PageTitles } from '../../const';
 import { TFilm } from '../../types/film';
 
 type FilmPageParams = {
@@ -22,7 +21,7 @@ function FilmPage ({ films }: FilmPageProps) {
   return (
     <Fragment>
       <Helmet>
-        <title>{PageTitles.Film}</title>
+        <title>{`${film?.name}`}</title>
       </Helmet>
 
       {film ? (
