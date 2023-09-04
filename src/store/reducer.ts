@@ -12,7 +12,9 @@ import {
   postFavoriteFilms,
   fetchUserStatus,
   loginUser,
-  logoutUser} from './action';
+  logoutUser,
+  registerUser
+} from './action';
 
 
 export type TInitialState = {
@@ -86,6 +88,10 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(logoutUser.fulfilled, (state) => {
       state.authorizationStatus = AuthStatus.NoAuth;
       state.user = null;
+    })
+    .addCase(registerUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.authorizationStatus = AuthStatus.Auth;
     });
 });
 
