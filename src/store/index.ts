@@ -3,13 +3,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { createAPI } from '../api';
 import history from '../history';
 
-import { reducer } from './reducer';
-import { redirect } from './redirect';
-import { fetchFilms, fetchUserStatus } from './action';
+import { rootReducer } from './root-reducer';
+import { redirect } from './middlewares/redirect';
+
 
 const api = createAPI();
 const store = configureStore({
-  reducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
@@ -21,7 +21,5 @@ const store = configureStore({
     }).concat(redirect),
 });
 
-store.dispatch(fetchFilms());
-store.dispatch(fetchUserStatus());
 
 export { store, api };
