@@ -95,10 +95,17 @@ export const loginUser = createAsyncThunk<UserData, AuthData, { extra: Extra }>(
       const storedDataString = localStorage.getItem('userData');
       const storedData = storedDataString ? JSON.parse(storedDataString) : [];
 
-      const foundUser = storedData.find((user: UserData) => user.email === email && user.password === password);
+      const foundUserIndex = storedData.findIndex((user: UserData) => user.email === email && user.password === password);
 
-      if (foundUser) {
+      if (foundUserIndex !== -1) {
+        const foundUser = storedData[foundUserIndex];
         const { token } = foundUser;
+
+        foundUser.auth = 'AUTH';
+        
+        storedData[foundUserIndex] = foundUser;
+        localStorage.setItem('userData', JSON.stringify(storedData));
+
         Token.save(token);
         history.push(AppRoute.Root);
         toast.success('Успешная аутентификация');
@@ -114,6 +121,7 @@ export const loginUser = createAsyncThunk<UserData, AuthData, { extra: Extra }>(
     }
   }
 );
+
 
 
 export const fetchUserStatus = createAsyncThunk<UserData, undefined, { extra: Extra }>(
