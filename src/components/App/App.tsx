@@ -17,11 +17,13 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import HistoryRouter from '../HistoryRoute/HistoryRoute';
 import history from '../../history';
 import { AppRoute } from '../../const';
+import { getFilms, getIsFilmsLoading } from '../../store/film-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function App() {
-  const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
-  const films = useAppSelector((state) => state.films);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isFilmsLoading = useAppSelector(getIsFilmsLoading);
+  const films = useAppSelector(getFilms);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (isFilmsLoading) {
     return ( <Loader />);

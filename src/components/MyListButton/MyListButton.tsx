@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router';
 
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { postFavoriteFilms } from '../../store/action';
+import { postFavoriteFilms } from '../../store/api-action';
 import { AppRoute, AuthStatus } from '../../const';
 import { TFilmId } from '../../types/film';
 import './MyListButton.css';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getFavoriteFilms } from '../../store/film-process/selectors';
 
 type MyListBtnProps = {
   id: TFilmId;
@@ -15,9 +17,9 @@ type MyListBtnProps = {
 function MyListButton ({ id, min, className = '' }: MyListBtnProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const authStatus = useAppSelector((store) => store.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const isAuth = authStatus === AuthStatus.Auth;
-  const favoriteFilms = useAppSelector((store) => store.favorite);
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
   const isFavorite = favoriteFilms.some((film) => film.id === id);
 
   const onChangeFavorite = async () => {

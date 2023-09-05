@@ -4,10 +4,11 @@ import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import FilmsList from '../../components/FilmsList/FilmsList';
 import { TFilm } from '../../types/film';
+import { getFilms } from '../../store/film-process/selectors';
 
 function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const films: TFilm[] = useAppSelector((state) => state.films);
+  const films: TFilm[] = useAppSelector(getFilms);
   const [searchResults, setSearchResults] = useState<TFilm[]>([]);
 
   const filteredFilms: TFilm[] = films.filter((film) => film.name.toLocaleLowerCase().includes(searchQuery.toLowerCase()));

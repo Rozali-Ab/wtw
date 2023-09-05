@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 
 import { AppRoute, AuthStatus } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { logoutUser } from '../../store/action';
+import { logoutUser } from '../../store/api-action';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
 
 function UserBlock() {
   const dispatch = useAppDispatch();
-  const isAuth = useAppSelector((state) => state.authorizationStatus) === AuthStatus.Auth;
-  const user = useAppSelector((state) => state.user);
+  const isAuth = useAppSelector(getAuthorizationStatus) === AuthStatus.Auth;
+  const user = useAppSelector(getUserData);
   const email = user?.email;
   
   const handleLogoutClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {

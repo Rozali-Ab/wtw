@@ -3,13 +3,14 @@ import FilmsList from '../FilmsList/FilmsList';
 import { useAppSelector } from '../../hooks';
 import { TFilm } from '../../types/film';
 import { DEFAULT_NAME_GENRE } from '../../const';
+import { getCurrentGenre } from '../../store/film-process/selectors';
 
 type FilmsCatalogProps = {
   films: TFilm[];
 }
 
 function FilmsCatalog({films}: FilmsCatalogProps) {
-  const currentGenre = useAppSelector((state) => state.currentGenre);
+  const currentGenre = useAppSelector(getCurrentGenre);
 
   const sortedFilms = films.filter(
     (film) => currentGenre === DEFAULT_NAME_GENRE || currentGenre === film.genre

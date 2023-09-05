@@ -4,10 +4,11 @@ import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/FilmsList/FilmsList';
 import { PageTitles } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getFavoriteFilms, getFilms } from '../../store/film-process/selectors';
 
 function FavoritesPage () {
-  const films = useAppSelector((state) => state.films);
-  const favoritesFilms = useAppSelector((state) => state.favorite);
+  const films = useAppSelector(getFilms);
+  const favoritesFilms = useAppSelector(getFavoriteFilms);
 
   const favoriteIds = favoritesFilms.map((favorite) => favorite.id);
 

@@ -4,17 +4,18 @@ import { Helmet } from 'react-helmet-async';
 import { Fragment } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { registerUser } from '../../store/action';
+import { registerUser } from '../../store/api-action';
 import { AppRoute, PageTitles } from '../../const';
 import { AuthData } from '../../types/userData';
 import { AuthStatus } from '../../const';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 import type { FormEvent } from 'react';
 
 
 function SignInPage () {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((store) => store.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
