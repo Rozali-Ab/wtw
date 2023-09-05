@@ -18,14 +18,15 @@ function MyListButton ({ id, min, className = '' }: MyListBtnProps) {
   const authStatus = useAppSelector((store) => store.authorizationStatus);
   const isAuth = authStatus === AuthStatus.Auth;
   const favoriteFilms = useAppSelector((store) => store.favorite);
-  const isFavorite = favoriteFilms.find((film) => film.id === id);
+  const isFavorite = favoriteFilms.some((film) => film.id === id);
 
-  const onChangeFavorite = () => {
+  const onChangeFavorite = async () => {
     if (isAuth) {
-      dispatch(postFavoriteFilms({
-        filmId: id,
-        status: Number(!isFavorite),
-      }),
+      await dispatch(
+        postFavoriteFilms({
+          filmId: id,
+          status: Number(!isFavorite),
+        })
       );
     } else {
       navigate(AppRoute.Login);

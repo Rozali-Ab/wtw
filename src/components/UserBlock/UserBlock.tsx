@@ -8,10 +8,13 @@ function UserBlock() {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector((state) => state.authorizationStatus) === AuthStatus.Auth;
   const user = useAppSelector((state) => state.user);
-
+  const email = user?.email;
+  
   const handleLogoutClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
-    dispatch(logoutUser());
+    if (email) {
+      dispatch(logoutUser(email));
+    }
   };
 
   return (

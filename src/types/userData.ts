@@ -4,6 +4,8 @@ export type UserData = {
   email: string;
   avatarUrl: string;
   token: string;
+  password: string;
+  auth: string;
 };
 
 export type AuthData = {

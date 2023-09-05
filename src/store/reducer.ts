@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { AuthStatus, DEFAULT_NAME_GENRE } from '../const';
-import { TFilm} from '../types/film';
+import { TFilm, TFilmId } from '../types/film';
 import { UserData } from '../types/userData';
 
 import { 
@@ -20,7 +20,7 @@ import {
 export type TInitialState = {
   currentGenre: string;
   films: TFilm[];
-  favorite: TFilm[];
+  favorite:  { id: TFilmId; isFavorite: boolean }[];
   currentFilm: TFilm | null;
   currentFilmLoadingEnd: boolean;
   authorizationStatus: AuthStatus;

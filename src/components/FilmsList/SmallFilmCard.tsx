@@ -21,7 +21,7 @@ function SmallFilmCard({ film, playing, onMouseOver, onMouseLeave }: SmallFilmCa
     id,
     name,
     previewImage,
-    previewVideoLink
+    previewVideoLink,
   } = film;
 
   
