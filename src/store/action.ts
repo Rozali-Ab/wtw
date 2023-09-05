@@ -159,6 +159,7 @@ export const logoutUser = createAsyncThunk<void, string>(
   }
 );
 
+
 export const postFavoriteFilms = createAsyncThunk<
   { id: TFilmId; isFavorite: boolean },
   FavoriteData,
@@ -169,15 +170,17 @@ export const postFavoriteFilms = createAsyncThunk<
     const { history } = extra;
 
     try {
-      const userId = localStorage.getItem('userData.email');
+      const userDataString = localStorage.getItem('userData');
+      const userData = userDataString ? JSON.parse(userDataString) : [];
 
-      if (!userId) {
+      const currentUser = userData.find((user: UserData) => user.auth === 'AUTH');
+
+      if (!currentUser) {
         history.push(AppRoute.Login);
         throw new Error('Пользователь не аутентифицирован');
       }
 
-      const favoriteMoviesKey = `favoriteMovies_${userId}`;
-      let favorites: { id: TFilmId; isFavorite: boolean }[] = JSON.parse(localStorage.getItem(favoriteMoviesKey) || '[]');
+      let favorites: { id: TFilmId; isFavorite: boolean }[] = currentUser.favorites || [];
 
       const filmData = { id: filmId, isFavorite: status === 1 };
 
@@ -187,14 +190,22 @@ export const postFavoriteFilms = createAsyncThunk<
         favorites = favorites.filter((film) => film.id !== filmId);
       }
 
-      localStorage.setItem(favoriteMoviesKey, JSON.stringify(favorites));
-      
+      currentUser.favorites = favorites;
+      localStorage.setItem('userData', JSON.stringify(userData));
+
       return filmData;
     } catch (error) {
       throw error;
     }
   }
 );
+
+
+
+
+
+
+
 
 
 export const fetchFavoriteFilms = createAsyncThunk<
