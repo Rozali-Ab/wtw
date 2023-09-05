@@ -42,3 +42,10 @@ export enum HttpCode {
   NotFound = 404,
   NoAuth = 401,
 }
+
+export enum NameSpace {
+  User = 'USER',
+  Films = 'FILMS',
+}
+
+export const PUBLIC_URL = 'http://localhost:3000/';
