@@ -2,10 +2,11 @@ import { createAsyncThunk } from'@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { AxiosInstance, AxiosError } from 'axios';
 
-import { ApiRoute, AppRoute, HttpCode} from '../const';
+import { ApiRoute, AppRoute, HttpCode, AuthStatus} from '../const';
 import { TFilm, TFilmId, FavoriteData } from '../types/film';
 import { UserData, AuthData } from '../types/userData';
 import { Token } from '../utils/utils';
+import { getStateFromLs, setStateToLs } from '../utils/localStorageUtils/localStorageUtils';
 
 import type { History } from 'history';
 
@@ -66,15 +67,17 @@ export const registerUser = createAsyncThunk<UserData, AuthData, { extra: Extra 
       Token.save(token);
 
       const userDataWithFields = { ...data, password, favorites: [], auth: 'AUTH'}; 
-      const storedDataString = localStorage.getItem('userData');
-      const storedData = storedDataString ? JSON.parse(storedDataString) : [];
-      storedData.push(userDataWithFields);
-      localStorage.setItem('userData', JSON.stringify(storedData));
+      const state = getStateFromLs(email);
+
+      state.push(userDataWithFields);
+      
+      setStateToLs(`${email}`, state);
       
       history.push(AppRoute.Root);
 
       return data;
     } catch (error) {
+      toast.error('Укажите корректный e-mail');
       throw error;
     }
   }
@@ -86,31 +89,29 @@ export const loginUser = createAsyncThunk<UserData, AuthData, { extra: Extra }>(
     const { history } = extra;
 
     try {
-      const storedDataString = localStorage.getItem('userData');
-      const storedData = storedDataString ? JSON.parse(storedDataString) : [];
+      const user = getStateFromLs(`${email}`);
 
-      const foundUserIndex = storedData.findIndex((user: UserData) => user.email === email && user.password === password);
+      if (user.email === email) {
+        if (user.password === password) {
+          const { token } = user;
+          user.auth = AuthStatus.Auth;
+          setStateToLs(`${email}`, user);
 
-      if (foundUserIndex !== -1) {
-        const foundUser = storedData[foundUserIndex];
-        const { token } = foundUser;
+          Token.save(token);
+          history.push(AppRoute.Root);
+          toast.success('Успешная аутентификация');
 
-        foundUser.auth = 'AUTH';
+          return user;
+        } else {
+          toast.error('Неверный пароль');
+          throw new Error('Неверный пароль');
+        }
         
-        storedData[foundUserIndex] = foundUser;
-        localStorage.setItem('userData', JSON.stringify(storedData));
-
-        Token.save(token);
-        history.push(AppRoute.Root);
-        toast.success('Успешная аутентификация');
-
-        return foundUser;
       } else {
-        toast.error('Пользователь с таким email и паролем не найден');
-        throw new Error('Пользователь не найден');
+        throw new Error();
       }
     } catch (error) {
-      toast.error('Произошла ошибка во время аутентификации');
+      toast.error('Пользователь с таким email не найден');
       throw error;
     }
   }
@@ -131,17 +132,12 @@ export const logoutUser = createAsyncThunk<void, string>(
     try {
       Token.drop();
 
-      const storedDataString = localStorage.getItem('userData');
-      const storedData = storedDataString ? JSON.parse(storedDataString) : [];
+      const user = getStateFromLs(email);
 
-      const updatedData = storedData.map((userData: UserData) => {
-        if (userData.email === email) {
-          return { ...userData, auth: 'NO_AUTH' };
-        }
-        return userData;
-      });
-
-      localStorage.setItem('userData', JSON.stringify(updatedData));
+      if (user) {
+        user.auth = AuthStatus.NoAuth;
+        setStateToLs(email, user);
+      }
     } catch (error) {
       toast.error('Произошла ошибка');
       throw error;
