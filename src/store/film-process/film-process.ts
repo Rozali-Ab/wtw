@@ -1,20 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { NameSpace, DEFAULT_NAME_GENRE } from '../../const';
-import { TFilm, TFilmId } from '../../types/film';
-import { 
-  fetchFilms,
-  fetchFilm,
-  fetchFavoriteFilms,
-  postFavoriteFilms,
-} from '../api-action';
+
+import type { TFilm } from '../../types/film';
+import type { THistory} from '../../types/userData';
 
 export type TInitialState = {
   films: TFilm[];
   currentGenre: string;
-  favorite:  { id: TFilmId; isFavorite: boolean }[];
-  isFilmsLoading: boolean;
-  currentFilm: TFilm | null;
+  favorite: TFilm[];
+  history: THistory[];
   currentFilmLoading: boolean;
 };
 
@@ -22,8 +17,7 @@ export const initialState: TInitialState = {
   films: [],
   currentGenre: DEFAULT_NAME_GENRE,
   favorite: [],
-  isFilmsLoading: false,
-  currentFilm: null,
+  history: [],
   currentFilmLoading: false,
 };
 
@@ -34,37 +28,33 @@ export const filmsProcess = createSlice({
     setCurrentGenre: (state, action: PayloadAction<string>) => {
       state.currentGenre = action.payload;
     },
-  },
-  extraReducers(builder) {
-    builder
-      .addCase(fetchFilms.pending, (state) => {
-        state.isFilmsLoading = true;
-      })
-      .addCase(fetchFilms.fulfilled, (state, action) => {
-        state.films = action.payload;
-        state.isFilmsLoading = false;
-      })
-      .addCase(fetchFilm.fulfilled, (state, action) => {
-        state.currentFilm = action.payload;
-        state.currentFilmLoading = true;
-      })
-      .addCase(fetchFilm.pending, (state) => {
-        state.currentFilmLoading = false;
-      })
-      .addCase(fetchFilm.rejected, (state) => {
-        state.currentFilmLoading = true;
-      })
-      .addCase(fetchFavoriteFilms.fulfilled, (state, action) => {
-        state.favorite = action.payload;
-      })
-      .addCase(postFavoriteFilms.fulfilled, (state, {payload: film}) => {
-        const { id, isFavorite } = film;
-        const stateFilms = state.favorite;
-        state.favorite = isFavorite
-          ? [...stateFilms, film]
-          : stateFilms.filter((film) => film.id !== id); 
-      });
+    setFavorites: (state, action) => {
+      state.favorite = [...action.payload];
+    },
+    addFavorites: (state, action) => {
+      state.favorite = [...state.favorite, action.payload];
+    },
+    deleteFavorites: (state, action) => {
+      state.favorite = [...state.favorite.filter((item) => item.id !== action.payload)];
+    },
+    setHistory: (state, action) => {
+      state.history = action.payload;
+    },
+    clearFavorites: (state) => {
+      state.favorite = [];
+    },
+    clearHistory: (state) => {
+      state.history = [];
+    },
   },
 });
 
-export const { setCurrentGenre } = filmsProcess.actions;
+export const { 
+  setCurrentGenre, 
+  setFavorites, 
+  addFavorites,  
+  setHistory, 
+  deleteFavorites, 
+  clearFavorites, 
+  clearHistory,
+} = filmsProcess.actions;

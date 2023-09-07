@@ -1,50 +1,44 @@
-import { useNavigate } from 'react-router';
-
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { postFavoriteFilms } from '../../store/api-action';
-import { AppRoute, AuthStatus } from '../../const';
-import { TFilmId } from '../../types/film';
-import './MyListButton.css';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { addFavorites, deleteFavorites } from '../../store/film-process/film-process';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getFavoriteFilms } from '../../store/film-process/selectors';
+import { AuthStatus } from '../../const';
+
+import './MyListButton.css';
+import type { TFilm } from '../../types/film';
 
 type MyListBtnProps = {
-  id: TFilmId;
+  film: TFilm;
   min?: boolean;
-  className?: string;
+  className: string;
+  isFavorite: boolean;
 }
 
-function MyListButton ({ id, min, className = '' }: MyListBtnProps) {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+function MyListButton ({ film, min, className = 'small-film-card__mylist', isFavorite }: MyListBtnProps) {
+  const dispatch = useAppDispatch();  
   const authStatus = useAppSelector(getAuthorizationStatus);
   const isAuth = authStatus === AuthStatus.Auth;
-  const favoriteFilms = useAppSelector(getFavoriteFilms);
-  const isFavorite = favoriteFilms.some((film) => film.id === id);
+  const { id } = film;
 
-  const onChangeFavorite = async () => {
-    if (isAuth) {
-      await dispatch(
-        postFavoriteFilms({
-          filmId: id,
-          status: Number(!isFavorite),
-        })
-      );
-    } else {
-      navigate(AppRoute.Login);
-    }
+  const onClickFavorite = (idFilm: number) => {
+    if (isFavorite) {
+      dispatch(deleteFavorites(idFilm));
+      return;
+    } 
+    dispatch(addFavorites(film));
   };
 
   return (
-    <button 
-      onClick={onChangeFavorite}
-      className={`btn btn--list film-card__button ${className} ${min ? 'btn--list-min' : ''}`}
-      type="button"
-    >
-      <svg viewBox="0 0 19 20" width="19" height="20">
-        <use xlinkHref={`#${isFavorite ? 'in-list' : 'add'}`}></use>
-      </svg>
-    </button>
+    isAuth ? (
+      <button 
+        onClick={() => onClickFavorite(id)}
+        className={`btn btn--list film-card__button ${className} ${min ? 'btn--list-min' : ''}`}
+        type="button"
+      >
+        <svg viewBox="0 0 19 20" width="19" height="20">
+          <use xlinkHref={`#${isFavorite ? 'in-list' : 'add'}`}></use>
+        </svg>
+      </button>
+    ) : null
   );
 }
 

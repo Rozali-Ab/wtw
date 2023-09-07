@@ -6,7 +6,6 @@ type FilmCardDetailsProps = {
   film: TFilm;
 };
 
-
 function FilmCardDetails({film}: FilmCardDetailsProps) {
   const {
     director,

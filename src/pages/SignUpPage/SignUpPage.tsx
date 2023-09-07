@@ -1,35 +1,44 @@
-import { Navigate } from 'react-router';
+import { Fragment, useState, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Fragment } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { registerUser } from '../../store/api-action';
+import { useAppDispatch} from '../../hooks';
 import { AppRoute, PageTitles } from '../../const';
-import { AuthData } from '../../types/userData';
-import { AuthStatus } from '../../const';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
-import type { FormEvent } from 'react';
+import { logIn } from '../../store/user-process/user-process';
+import { setFavorites, setHistory } from '../../store/film-process/film-process';
 
 
-function SignInPage () {
+function SignUpPage () {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.currentTarget.value);
+  };
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
-
-    const formData = new FormData(form) as Iterable<[AuthData]>;
-    const data = Object.fromEntries(formData);
+    navigate(AppRoute.Root);
     
-    dispatch(registerUser(data));
+    const user = {
+      email,
+      password,
+      favorites: [],
+      history: [],
+    };
+    dispatch(logIn(user));
+    dispatch(setFavorites(user.favorites));
+    dispatch(setHistory(user.history));
   };
-
-  if (authorizationStatus === AuthStatus.Auth) {
-    return <Navigate to={AppRoute.Root}/>;
-  }
 
   return (
     <Fragment>
@@ -46,11 +55,25 @@ function SignInPage () {
           >
             <div className="sign-in__fields">
               <div className="sign-in__field">
-                <input className="sign-in__input" type="email" placeholder="Email address" name="email" id="email" />
+                <input 
+                  className="sign-in__input" 
+                  type="email" 
+                  placeholder="Email address" 
+                  name="email" 
+                  id="email" 
+                  onChange={handleEmailChange}
+                />
                 <label className="sign-in__label visually-hidden" htmlFor="email">Email address</label>
               </div>
               <div className="sign-in__field">
-                <input className="sign-in__input" type="password" placeholder="Password" name="password" id="password" />
+                <input 
+                  className="sign-in__input" 
+                  type="password" 
+                  placeholder="Password" 
+                  name="password" 
+                  id="password" 
+                  onChange={handlePasswordChange}
+                />
                 <label className="sign-in__label visually-hidden" htmlFor="password">Password</label>
               </div>
             </div>
@@ -67,4 +90,4 @@ function SignInPage () {
   );
 }
 
-export default SignInPage;
+export default SignUpPage;

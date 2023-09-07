@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import ShowMoreBtn from '../ShowMoreBtn/ShowMoreBtn';
 import { TFilm } from '../../types/film';
+import { useAppSelector } from '../../hooks';
+import { getFavoriteFilms } from '../../store/film-process/selectors';
 
 import SmallFilmCard from './SmallFilmCard';
 
@@ -13,7 +15,9 @@ type FilmsListProps = {
 
 function FilmsList({ films, maxFilms = films.length, withWhowMoreBtn}: FilmsListProps) {
   const filmsLength = films.length;
+  const favorites = useAppSelector(getFavoriteFilms);
   const FILM_COUNT_PER_STEP = maxFilms;
+  const isFavoriteCheck = (id: number) => !!favorites.find((item) => item.id === id);
 
   const [renderedFilmCount, setRenderedFilmCount] = useState(
     Math.min(FILM_COUNT_PER_STEP, filmsLength),
@@ -57,6 +61,7 @@ function FilmsList({ films, maxFilms = films.length, withWhowMoreBtn}: FilmsList
               onMouseOver={cardMouseOverHandler}
               onMouseLeave={cardMouseLeaveHandler}
               playing={film.id === activeFilmCard}
+              isFavorite={isFavoriteCheck(film.id)}
             />
           ))}
       </div>

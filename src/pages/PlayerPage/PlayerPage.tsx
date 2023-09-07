@@ -3,12 +3,11 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 
 import { AppRoute, PageTitles } from '../../const';
-import { TFilm } from '../../types/film';
 
-type PlayerPageProps = {
-  film: TFilm;
-}
-function PlayerPage({film: {previewImage, videoLink}}: PlayerPageProps) {
+function PlayerPage() {
+  const videoLink = 'https://10.react.pages.academy/static/film/video/bike.mp4';
+  const previewImage = 'https://10.react.pages.academy/static/film/preview/legend.jpg';
+
   return (
     <Fragment>
       <Helmet>

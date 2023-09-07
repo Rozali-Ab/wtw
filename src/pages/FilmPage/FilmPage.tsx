@@ -1,37 +1,37 @@
 import { useParams } from 'react-router';
-import { Fragment } from 'react';
+import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet-async';
 
 import FilmCardFull from '../../components/FilmCard/FilmCardFull';
-import { TFilm } from '../../types/film';
+import Loader from '../../components/Loader/Loader';
+import { useGetFilmByIdQuery } from '../../api/api';
 
-type FilmPageParams = {
-  id: string;
-};
+function FilmPage () {
+  const params = useParams();
 
-type FilmPageProps = {
-  films: TFilm[];
-}
+  const { isLoading, isError, data } = useGetFilmByIdQuery(Number(params.id));
 
-function FilmPage ({ films }: FilmPageProps) {
-  const { id } = useParams<FilmPageParams>();
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (isError) {
+    toast.error('Film is not loaded, please try again');
+  }
 
-  const film = films.find((film) => film.id.toString() === id);
+  if (data) {
+    return (
+      <>
+        <Helmet>
+          <title>{`${data.name}`}</title>
+        </Helmet>
+        <FilmCardFull film={data}/>
+      </>
+    );
+  } else {
+    toast.error('Film is not loaded, please try again');
+    throw new Error('No data available, try later');
+  }
 
-  return (
-    <Fragment>
-      <Helmet>
-        <title>{`${film?.name}`}</title>
-      </Helmet>
-
-      {film ? (
-        <FilmCardFull film={film}/>
-      ) : (
-        <div>Фильм не найден</div>
-      )
-      }
-    </Fragment>
-  );
 }
 
 export default FilmPage;

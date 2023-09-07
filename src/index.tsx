@@ -4,12 +4,11 @@ import { Provider } from 'react-redux';
 import {ToastContainer} from 'react-toastify';
 
 import App from './components/App/App';
-import { store } from './store';
+import { store } from './store/store';
 import 'react-toastify/dist/ReactToastify.css';
-import { fetchFilms, fetchUserStatus } from './store/api-action';
+//import { fetchFilms } from './store/api-action';
 
-store.dispatch(fetchFilms());
-store.dispatch(fetchUserStatus());
+//store.dispatch(fetchFilms());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,9 +1,3 @@
-export enum ApiRoute {
-  Films = '/films',
-  Login = '/login',
-  Favorite = '/favorite',
-};
-
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -37,11 +31,6 @@ export enum PageTitles {
 
 export const DEFAULT_NAME_GENRE = 'All genres';
 export const MAX_FILMS_GENRES = 10;
-
-export enum HttpCode {
-  NotFound = 404,
-  NoAuth = 401,
-}
 
 export enum NameSpace {
   User = 'USER',
