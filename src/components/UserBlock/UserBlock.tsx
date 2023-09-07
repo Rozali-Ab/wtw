@@ -1,17 +1,20 @@
 import { Link } from 'react-router-dom';
 
-import { AppRoute, AuthStatus } from '../../const';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { logoutUser } from '../../store/action';
+import { AppRoute } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { clearFavorites, clearHistory } from '../../store/film-process/film-process';
+import { logOut } from '../../store/user-process/user-process';
+import { localStorageUtil } from '../../utils/localStorageUtils/localStorageUtils';
 
 function UserBlock() {
   const dispatch = useAppDispatch();
-  const isAuth = useAppSelector((state) => state.authorizationStatus) === AuthStatus.Auth;
-  const user = useAppSelector((state) => state.user);
-
-  const handleLogoutClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
-    evt.preventDefault();
-    dispatch(logoutUser());
+  const isAuth = localStorageUtil.getAuth();
+  
+  const handleLogoutClick = () => {
+    localStorageUtil.setAuth('');
+    dispatch(logOut());
+    dispatch(clearFavorites());
+    dispatch(clearHistory());
   };
 
   return (
@@ -20,7 +23,7 @@ function UserBlock() {
         <>
           <li>
             <Link className="user-block__link" to={AppRoute.Search}>
-              Search
+              Search||
             </Link>
           </li>
           <li>
@@ -30,17 +33,12 @@ function UserBlock() {
           </li>
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img src={user?.avatarUrl} alt="User avatar" width="63" height="63" />
             </div>
           </li>
           <li className="user-block__item">
-            <a 
-              href="!#"
-              className="user-block__link"
-              onClick={handleLogoutClick}
-            >
+            <Link className="user-block__link" to={AppRoute.Root} onClick={handleLogoutClick}>
               Sign out
-            </a>
+            </Link>
           </li>
         </>
       ) : (

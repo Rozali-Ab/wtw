@@ -1,16 +1,15 @@
 import { Navigate } from 'react-router';
 
-import { AppRoute, AuthStatus } from '../../const';
+import { localStorageUtil } from '../../utils/localStorageUtils/localStorageUtils';
+import { AppRoute } from '../../const';
 
 type PrivateRouteProps = {
-  authStatus: AuthStatus;
   children: JSX.Element;
 }
 
 function PrivateRoute(props: PrivateRouteProps) {
-  const { authStatus, children } = props;
-  const isAuth = authStatus === AuthStatus.Auth;
-
+  const { children } = props;
+  const isAuth = localStorageUtil.getAuth();
 
   return isAuth ? children : <Navigate to={AppRoute.Login} />;
 }

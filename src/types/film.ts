@@ -17,3 +17,10 @@ export type TFilm = {
   videoLink: string;
   previewVideoLink: string;
  };
+ 
+export type TFilmId = number;
+
+export type FavoriteData = {
+  filmId: TFilmId;
+  status: number;
+};

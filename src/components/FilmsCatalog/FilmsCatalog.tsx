@@ -1,16 +1,16 @@
 import GenresList from '../GenresList/GenresList';
 import FilmsList from '../FilmsList/FilmsList';
-import Footer from '../Footer/Footer';
 import { useAppSelector } from '../../hooks';
 import { TFilm } from '../../types/film';
 import { DEFAULT_NAME_GENRE } from '../../const';
+import { getCurrentGenre } from '../../store/film-process/selectors';
 
 type FilmsCatalogProps = {
   films: TFilm[];
 }
 
 function FilmsCatalog({films}: FilmsCatalogProps) {
-  const currentGenre = useAppSelector((state) => state.currentGenre);
+  const currentGenre = useAppSelector(getCurrentGenre);
 
   const sortedFilms = films.filter(
     (film) => currentGenre === DEFAULT_NAME_GENRE || currentGenre === film.genre
@@ -21,9 +21,7 @@ function FilmsCatalog({films}: FilmsCatalogProps) {
       <section className="catalog">
         <GenresList films={films}/>
         <FilmsList films={sortedFilms} maxFilms={8} withWhowMoreBtn/>
-
       </section>
-      <Footer />
     </div>
   );
 }

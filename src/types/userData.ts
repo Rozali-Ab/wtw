@@ -1,14 +1,22 @@
+import { TFilm } from './film';
+
+export type THistory = {
+  query: string;
+}
+
 export type UserData = {
-  id: number;
+  id: string;
   name: string;
   email: string;
   avatarUrl: string;
   token: string;
+  password: string;
+  auth: string;
+  favorites: TFilm[];
+  history: THistory[];
 };
 
 export type AuthData = {
   email: string;
   password: string;
 };
-
-export type UserAuth = Pick<UserData, 'email'> & { password: string };
