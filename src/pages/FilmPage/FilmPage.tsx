@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 
 import FilmCardFull from '../../components/FilmCard/FilmCardFull';
 import Loader from '../../components/Loader/Loader';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { useGetFilmByIdQuery } from '../../api/api';
 
 function FilmPage () {
@@ -16,6 +17,7 @@ function FilmPage () {
   }
   if (isError) {
     toast.error('Film is not loaded, please try again');
+    return <ErrorMessage />;
   }
 
   if (data) {

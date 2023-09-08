@@ -8,7 +8,7 @@ export enum AppRoute {
   Favorites = '/favorite',
   History = '/history',
   Search = '/search',
-  NotFound = '/notfound',
+  NotFound = '/*',
 }
 
 export enum AuthStatus {

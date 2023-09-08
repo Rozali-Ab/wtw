@@ -7,6 +7,7 @@ import FilmsCatalog from '../../components/FilmsCatalog/FilmsCatalog';
 import Loader from '../../components/Loader/Loader';
 import FilmCard from '../../components/FilmCard/FilmCardPreview';
 import { PageTitles } from '../../const';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 function MainPage() {
   const { isLoading, isError, data } = useGetFilmsQuery();
@@ -16,6 +17,7 @@ function MainPage() {
   }
   if (isError) {
     toast.error('Films is not loaded, please try again');
+    return <ErrorMessage />;
   }
 
   if (data) {
