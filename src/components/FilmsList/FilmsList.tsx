@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ShowMoreBtn from '../ShowMoreBtn/ShowMoreBtn';
-import { TFilm } from '../../types/film';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteFilms } from '../../store/film-process/selectors';
 
 import SmallFilmCard from './SmallFilmCard';
+
+import type{ TFilm } from '../../types/film';
 
 type FilmsListProps = {
   films: TFilm[];
@@ -27,21 +28,6 @@ function FilmsList({ films, maxFilms = films.length, withWhowMoreBtn}: FilmsList
     setRenderedFilmCount(Math.min(FILM_COUNT_PER_STEP, filmsLength));
   }, [films, FILM_COUNT_PER_STEP, filmsLength]);
 
-  const [activeFilmCard, setActiveFilmCard] = useState<number | null>(null);
-  const timer = useRef<NodeJS.Timeout>();
-
-  const cardMouseOverHandler = (id: number) => {
-    timer.current = setTimeout(() => {
-      setActiveFilmCard(id);
-    }, 1000);
-  };
-
-  const cardMouseLeaveHandler = () => {
-    setActiveFilmCard(null);
-    if (timer.current) {
-      clearTimeout(timer.current);
-    }
-  };
 
   const clickShowMoreBtnHandler = () =>
     setRenderedFilmCount(() => {
@@ -58,9 +44,6 @@ function FilmsList({ films, maxFilms = films.length, withWhowMoreBtn}: FilmsList
             <SmallFilmCard
               key={film.id}
               film={film}
-              onMouseOver={cardMouseOverHandler}
-              onMouseLeave={cardMouseLeaveHandler}
-              playing={film.id === activeFilmCard}
               isFavorite={isFavoriteCheck(film.id)}
             />
           ))}

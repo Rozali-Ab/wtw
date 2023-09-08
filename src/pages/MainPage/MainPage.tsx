@@ -10,7 +10,7 @@ import { PageTitles } from '../../const';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 function MainPage() {
-  const { isLoading, isError, data } = useGetFilmsQuery();
+  const { isLoading, isError, data } = useGetFilmsQuery(50);
 
   if (isLoading) {
     return <Loader />;
@@ -21,7 +21,7 @@ function MainPage() {
   }
 
   if (data) {
-    const promoFilmId = (Math.floor(Math.random() * 25));
+    const promoFilmId = (Math.floor(Math.random() * 10));
 
     return (
       <Fragment>

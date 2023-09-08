@@ -1,22 +1,19 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
-import { useAppSelector } from '../../hooks';
-import FilmsList from '../../components/FilmsList/FilmsList';
-import { TFilm } from '../../types/film';
-import { getFilms } from '../../store/film-process/selectors';
+import SearchList from '../../components/SearchList/SearchList';
 
 function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const films: TFilm[] = useAppSelector(getFilms);
-  const [searchResults, setSearchResults] = useState<TFilm[]>([]);
-
-  const filteredFilms: TFilm[] = films.filter((film) => film.name.toLocaleLowerCase().includes(searchQuery.toLowerCase()));
+  const [showSearchList, setShowSearchList] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
     setSearchQuery(searchQuery);
-    setSearchResults(filteredFilms);
+  };
+
+  const onClickSubmit = () => {
+    setShowSearchList(true); 
   };
 
   return (
@@ -27,22 +24,19 @@ function SearchPage() {
       <div className="user-page">
         <div className="page-content">
           <section className="catalog">
-            <p>
+            <div className="sign-in__fields">
               <input 
+                className="sign-in__input"
+                id="search-input"
                 type="search" 
-                placeholder="search" 
+                placeholder="film name" 
                 value={searchQuery}
                 onChange={handleChange}
-              />
-            </p>
-            {searchResults.length === 0 && searchQuery.length >= 3 && (
-              <p>No results found.</p>
-            )}
-            {searchResults.length >=2 && (
-              <p>Recommended for viewing</p>
-            )}
-            <FilmsList films={searchResults}/>
+              /><br />
+              <button className="sign-in__btn" type="button" onClick={onClickSubmit}>Search</button>
+            </div>
           </section>
+          {showSearchList && (<SearchList query={searchQuery}/>) }
         </div>
       </div>
     </>

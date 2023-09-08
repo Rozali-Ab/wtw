@@ -27,7 +27,7 @@ function FilmCardDetails({film}: FilmCardDetailsProps) {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {starring.join(', <br/>')}
+            {starring.join(',')}
           </span>
         </p>
       </div>

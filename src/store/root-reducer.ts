@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import { filmsApi } from '../api/api';
+import { filmsApi} from '../api/api';
 import { NameSpace } from '../const';
 
 import { filmsProcess } from './film-process/film-process';
@@ -11,3 +11,4 @@ export const rootReducer = combineReducers({
   [NameSpace.Films]: filmsProcess.reducer,
   [filmsApi.reducerPath]: filmsApi.reducer,
 });
+

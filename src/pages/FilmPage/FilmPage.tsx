@@ -6,11 +6,12 @@ import FilmCardFull from '../../components/FilmCard/FilmCardFull';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { useGetFilmByIdQuery } from '../../api/api';
+import { PageTitles } from '../../const';
 
 function FilmPage () {
-  const params = useParams();
+  const { id } = useParams();
 
-  const { isLoading, isError, data } = useGetFilmByIdQuery(Number(params.id));
+  const { isLoading, isError, data } = useGetFilmByIdQuery(Number(id));
 
   if (isLoading) {
     return <Loader />;
@@ -21,19 +22,20 @@ function FilmPage () {
   }
 
   if (data) {
+    const film = data;
     return (
       <>
         <Helmet>
-          <title>{`${data.name}`}</title>
+          <title>{PageTitles.Film}</title>
         </Helmet>
-        <FilmCardFull film={data}/>
+        <FilmCardFull film={film}/>
+        
       </>
     );
   } else {
     toast.error('Film is not loaded, please try again');
     throw new Error('No data available, try later');
   }
-
 }
 
 export default FilmPage;
