@@ -2,13 +2,14 @@ import { Fragment, useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { toast } from 'react-toastify';
 
 import { useAppDispatch} from '../../hooks';
 import { AppRoute, PageTitles } from '../../const';
 
 import { logIn } from '../../store/user-process/user-process';
 import { setFavorites, setHistory } from '../../store/film-process/film-process';
-
+import { validateEmail, validatePassword } from '../../utils/utils';
 
 function SignUpPage () {
   const navigate = useNavigate();
@@ -27,17 +28,22 @@ function SignUpPage () {
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate(AppRoute.Root);
-    
-    const user = {
-      email,
-      password,
-      favorites: [],
-      history: [],
-    };
-    dispatch(logIn(user));
-    dispatch(setFavorites(user.favorites));
-    dispatch(setHistory(user.history));
+    if (validateEmail(email)) {
+      if (validatePassword(password)) {
+        navigate(AppRoute.Root);
+        const user = {
+          email,
+          password,
+          favorites: [],
+          history: [],
+        };
+        dispatch(logIn(user));
+        dispatch(setFavorites(user.favorites));
+        dispatch(setHistory(user.history));
+        toast.success('Successfully');
+      } else toast.warn('Password must be at least 6 characters long');
+    } else toast.warn('Invalid email format');
+
   };
 
   return (

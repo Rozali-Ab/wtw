@@ -31,11 +31,11 @@ function SignUnPage () {
           dispatch(setFavorites(userInfo?.favorites));
           dispatch(setHistory(userInfo?.history));
           navigate(AppRoute.Root);
-        } else toast.error('Wrong password');
+          toast.success('Successfully');
+        } else toast.warn('Wrong password');
       } else toast.error('Wrong email');
     } else {
       toast.error('User not found');
-      
     }
   };
 
