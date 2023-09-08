@@ -1,36 +1,44 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { transformResponseToFilm } from './tranformResponse';
+import {  transformResponseToFilm, transformOneFilm } from './tranformResponse';
 
-import type { TFilm } from '../types/film';
-
-const BASE_URL = 'https://10.react.pages.academy/wtw/';
-const FILMS_URL = 'films';
-const HEADER_NAME = 'X-Token';
-const HEADER_KEY = 'wtw-token';
+const BASE_SEARCH_URL = 'https://api.kinopoisk.dev/v1.3/';
+const HEADER_NAME = 'X-API-KEY';
+//const HEADER_KEY = 'TDQPASQ-H2C4QBE-Q22NS9H-7F8T1XM';
+const HEADER_KEY = 'G4DG8Q7-K654AF3-N3478BW-G93839V';
 
 export const filmsApi = createApi({
   reducerPath: 'filmsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
+    baseUrl: BASE_SEARCH_URL,
     prepareHeaders: (headers) => {
       headers.set(HEADER_NAME, HEADER_KEY);
       return headers;
     },
   }),
   endpoints: (builder) => ({
-    getFilms: builder.query<TFilm[], void>({
-      query: () => ({
-        url: FILMS_URL,
+    getFilms: builder.query({
+      query: ({limit}) => ({
+        url: 'movie',
+        params: {limit},
       }),
       transformResponse: transformResponseToFilm,
     }),
-    getFilmById: builder.query<TFilm, number>({
+    getFilmById: builder.query({
       query: (id) => ({
-        url: `${FILMS_URL}/${id}`,
+        url: `movie/${id}`,
       }),
+      transformResponse: transformOneFilm,
+    }),
+    getFilmByQuery: builder.query({
+      query: ({limit, name}) => ({
+        url: 'movie',
+        params: {limit, name},
+      }),
+      transformResponse: transformResponseToFilm,
     }),
   })
 });
 
-export const { useGetFilmsQuery, useGetFilmByIdQuery } = filmsApi;
+
+export const { useGetFilmsQuery, useGetFilmByIdQuery, useGetFilmByQueryQuery } = filmsApi;
