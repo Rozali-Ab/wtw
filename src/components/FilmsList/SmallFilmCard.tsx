@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import MyListButton from '../MyListButton/MyListButton';
 import Player from '../Player/Player';
@@ -56,5 +57,14 @@ function SmallFilmCard({ film, isFavorite }: SmallFilmCardProps) {
     </article>
   );
 }
+
+SmallFilmCard.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
+  }),
+};
 
 export default SmallFilmCard;

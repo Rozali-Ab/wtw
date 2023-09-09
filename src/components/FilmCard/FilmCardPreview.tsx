@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { AppRoute } from '../../const';
 import { TFilm } from '../../types/film';
@@ -59,5 +60,16 @@ function FilmCard({film}: FilmCardProps) {
     </section>
   );
 }
+
+FilmCard.propTypes = {
+  film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired, 
+    genre: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default FilmCard;

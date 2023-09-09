@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import ShowMoreBtn from '../ShowMoreBtn/ShowMoreBtn';
 import { useAppSelector } from '../../hooks';
@@ -54,5 +55,16 @@ function FilmsList({ films, maxFilms = films.length, withWhowMoreBtn}: FilmsList
     </>
   );
 }
+
+FilmsList.propTypes = {
+  cards: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      previewImage: PropTypes.string.isRequired,
+      previewVideoLink: PropTypes.string.isRequired,
+    })
+  )
+};
 
 export default FilmsList;
