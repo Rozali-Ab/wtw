@@ -5,11 +5,11 @@ import SearchList from '../../components/SearchList/SearchList';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { searchAction } from '../../store/searchAction';
 import { getUserData } from '../../store/userSlice/selectors';
+import { useDebounce } from '../../hooks/useDebounce';
 
 export function SearchPage() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUserData);
-  
 
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchList, setShowSearchList] = useState(false);
@@ -20,9 +20,12 @@ export function SearchPage() {
     setSearchQuery(searchQuery);
   };
 
+  const debouncedSearchQuery = useDebounce(searchQuery, 800);
+
   const onClickSubmit = () => {
+
     setShowSearchList(true); 
-    dispatch(searchAction({user, searchQuery}));
+    dispatch(searchAction({user, debouncedSearchQuery}));
     setSearchQuery('');
   };
 
@@ -46,7 +49,7 @@ export function SearchPage() {
               <button className="sign-in__btn" type="button" onClick={onClickSubmit}>Search</button>
             </div>
           </section>
-          {showSearchList && (<SearchList query={searchQuery}/>) }
+          {showSearchList && (<SearchList query={debouncedSearchQuery}/>) }
         </div>
       </div>
     </>
