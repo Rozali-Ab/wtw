@@ -1,4 +1,4 @@
-import { Fragment, Suspense } from 'react';
+import { Fragment } from 'react';
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet-async';
@@ -6,7 +6,6 @@ import { Helmet } from 'react-helmet-async';
 import FilmCardFull from '../../components/FilmCard/FilmCardFull';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import Spinner from '../../components/Spinner/Spinner';
 import { useGetFilmByIdQuery } from '../../api/api';
 import { PageTitles } from '../../const';
 
@@ -26,15 +25,12 @@ export function FilmPage () {
   if (data) {
     const film = data;
     return (
-      <Suspense fallback={<Spinner />}>
-        <Fragment>
-          <Helmet>
-            <title>{PageTitles.Film}</title>
-          </Helmet>
-          <FilmCardFull film={film}/>
-        </Fragment>
-      </Suspense>
-      
+      <Fragment>
+        <Helmet>
+          <title>{PageTitles.Film}</title>
+        </Helmet>
+        <FilmCardFull film={film}/>
+      </Fragment>
     );
   } else {
     toast.error('Film is not loaded, please try again');
