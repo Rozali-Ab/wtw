@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { setCurrentGenre } from '../../store/film-process/film-process';
+import { setCurrentGenre } from '../../store/filmSlice/filmSlice';
 
 import { TFilm } from '../../types/film';
 import { useAppDispatch } from '../../hooks';

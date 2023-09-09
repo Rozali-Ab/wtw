@@ -3,7 +3,7 @@ import FilmsList from '../FilmsList/FilmsList';
 import { useAppSelector } from '../../hooks';
 import { TFilm } from '../../types/film';
 import { DEFAULT_NAME_GENRE } from '../../const';
-import { getCurrentGenre } from '../../store/film-process/selectors';
+import { getCurrentGenre } from '../../store/filmSlice/selectors';
 
 type FilmsCatalogProps = {
   films: TFilm[];

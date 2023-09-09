@@ -1,19 +1,20 @@
-import { Fragment } from 'react';
+import { Fragment, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
 
 import { useGetFilmsQuery } from '../../api/api';
 import FilmsCatalog from '../../components/FilmsCatalog/FilmsCatalog';
-import Loader from '../../components/Loader/Loader';
 import FilmCard from '../../components/FilmCard/FilmCardPreview';
 import { PageTitles } from '../../const';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import Spinner from '../../components/Spinner/Spinner';
 
-function MainPage() {
-  const { isLoading, isError, data } = useGetFilmsQuery(50);
+export function MainPage() {
+  const page = (Math.floor(Math.random() * 10));
+  const { isLoading, isError, data } = useGetFilmsQuery({limit: 20, page});
 
   if (isLoading) {
-    return <Loader />;
+    return <Spinner />;
   }
   if (isError) {
     toast.error('Films is not loaded, please try again');
@@ -24,18 +25,18 @@ function MainPage() {
     const promoFilmId = (Math.floor(Math.random() * 10));
 
     return (
-      <Fragment>
-        <Helmet>
-          <title>{PageTitles.Root}</title>
-        </Helmet>
-        <FilmCard film={data[promoFilmId]}/>
-        <FilmsCatalog films={data}/>
-      </Fragment>
+      <Suspense fallback={<Spinner />}>
+        <Fragment>
+          <Helmet>
+            <title>{PageTitles.Root}</title>
+          </Helmet>
+          <FilmCard film={data[promoFilmId]}/>
+          <FilmsCatalog films={data}/>
+        </Fragment>
+      </Suspense>
     );
   } else {
     toast.error('Film is not loaded, please try again');
     throw new Error('No data available, try later');
   }
 }
-
-export default MainPage;

@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 
 import { AppRoute, AuthStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { clearFavorites, clearHistory } from '../../store/film-process/film-process';
-import { logOut } from '../../store/user-process/user-process';
+import { clearFavorites, clearHistory } from '../../store/filmSlice/filmSlice';
+import { logOut } from '../../store/userSlice/userSlice';
 import { localStorageUtil } from '../../utils/localStorageUtils/localStorageUtils';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getAuthorizationStatus } from '../../store/userSlice/selectors';
 
 function UserBlock() {
   const dispatch = useAppDispatch();
@@ -24,19 +24,18 @@ function UserBlock() {
     <ul className="user-block">
       {isAuth ? (
         <>
-          <li>
+          <li className="user-block__item">
             <Link className="user-block__link" to={AppRoute.Search}>
-              Search||
+              Search
             </Link>
           </li>
-          <li>
+          <li className="user-block__item">
             <Link className="user-block__link" to={AppRoute.Favorites}>
             Favorites
             </Link>
           </li>
           <li className="user-block__item">
-            <div className="user-block__avatar">
-            </div>
+            <Link className="user-block__link" to={AppRoute.History}>History</Link>
           </li>
           <li className="user-block__item">
             <Link className="user-block__link" to={AppRoute.Root} onClick={handleLogoutClick}>
@@ -45,11 +44,23 @@ function UserBlock() {
           </li>
         </>
       ) : (
-        <li>
-          <Link className="user-block__link" to={AppRoute.Login}>
-            Sign in
-          </Link>
-        </li>
+        <>
+          <li className="user-block__item">
+            <Link className="user-block__link" to={AppRoute.Search}>
+              Search
+            </Link>
+          </li>
+          <li className="user-block__item">
+            <Link className="user-block__link" to={AppRoute.Login}>
+              Sign in
+            </Link>
+          </li>
+          <li className="user-block__item">
+            <Link className="user-block__link" to={AppRoute.SignUp}>
+              SIGN UP
+            </Link>
+          </li>
+        </>
       )}
     </ul>
   );

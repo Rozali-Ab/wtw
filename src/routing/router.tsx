@@ -1,17 +1,20 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
-import ErrorPage from '../../pages/ErrorPage/ErrorPage';
-import Layout from '../Layout/Layout';
-import MainPage from '../../pages/MainPage/MainPage';
-import FilmPage from '../../pages/FilmPage/FilmPage';
-import SignUpPage from '../../pages/SignUpPage/SignUpPage';
-import SignInPage from '../../pages/SignInPage/SignInPage';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import PlayerPage from '../../pages/PlayerPage/PlayerPage';
-import FavoritesPage from '../../pages/FavoritesPage/FavoritesPage';
-import HistoryPage from '../../pages/HistoryPage/HistoryPage';
-import SearchPage from '../../pages/SearchPage/SearchPage';
-import { AppRoute } from '../../const';
+import { SignInPage } from '../pages/SignInPage/SignInPage';
+import { SignUpPage } from '../pages/SignUpPage/SignUpPage';
+import { PlayerPage } from '../pages/PlayerPage/PlayerPage';
+import { SearchPage } from '../pages/SearchPage/SearchPage';
+import { HistoryPage } from '../pages/HistoryPage/HistoryPage';
+import ErrorPage from '../pages/ErrorPage/ErrorPage';
+import Layout from '../components/Layout/Layout';
+import { AppRoute } from '../const';
+
+import PrivateRoute from './PrivateRoute';
+import {
+  MainPage,
+  FavoritesPage,
+  FilmPage,
+} from './lazy-routes';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +25,7 @@ export const router = createBrowserRouter(
       <Route path={AppRoute.Login} element={<SignInPage />} />
       <Route path={AppRoute.SignUp} element={<SignUpPage />} />
       <Route path={AppRoute.Player} element={<PlayerPage />} />
+      <Route path={AppRoute.Search} element={<SearchPage />} />
       <Route path={AppRoute.Favorites} 
         element={
           <PrivateRoute>
@@ -33,13 +37,6 @@ export const router = createBrowserRouter(
         element={
           <PrivateRoute>
             <HistoryPage />
-          </PrivateRoute>
-        } 
-      />
-      <Route path={AppRoute.Search} 
-        element={
-          <PrivateRoute>
-            <SearchPage />
           </PrivateRoute>
         } 
       />

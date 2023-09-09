@@ -8,11 +8,11 @@ import { useAppDispatch } from '../../hooks';
 import { AppRoute, PageTitles } from '../../const';
 import { AuthData } from '../../types/userData';
 import { localStorageUtil } from '../../utils/localStorageUtils/localStorageUtils';
-import { logIn } from '../../store/user-process/user-process';
-import { setFavorites, setHistory } from '../../store/film-process/film-process';
+import { logIn } from '../../store/userSlice/userSlice';
+import { setFavorites, setHistory } from '../../store/filmSlice/filmSlice';
 
 
-function SignUnPage () {
+export function SignInPage () {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -86,5 +86,3 @@ function SignUnPage () {
     </Fragment>
   );
 }
-
-export default SignUnPage;

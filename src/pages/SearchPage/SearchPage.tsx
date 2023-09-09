@@ -2,11 +2,19 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import SearchList from '../../components/SearchList/SearchList';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { searchAction } from '../../store/searchAction';
+import { getUserData } from '../../store/userSlice/selectors';
 
-function SearchPage() {
+export function SearchPage() {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(getUserData);
+  
+
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchList, setShowSearchList] = useState(false);
-
+  
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
     setSearchQuery(searchQuery);
@@ -14,6 +22,8 @@ function SearchPage() {
 
   const onClickSubmit = () => {
     setShowSearchList(true); 
+    dispatch(searchAction({user, searchQuery}));
+    setSearchQuery('');
   };
 
   return (
@@ -42,5 +52,3 @@ function SearchPage() {
     </>
   );
 }
-
-export default SearchPage;

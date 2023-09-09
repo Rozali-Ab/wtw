@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import ShowMoreBtn from '../ShowMoreBtn/ShowMoreBtn';
 import { useAppSelector } from '../../hooks';
-import { getFavoriteFilms } from '../../store/film-process/selectors';
+import { getFavoriteFilms } from '../../store/filmSlice/selectors';
 
 import SmallFilmCard from './SmallFilmCard';
 

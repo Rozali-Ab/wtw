@@ -3,7 +3,7 @@ import UserBlock from '../UserBlock/UserBlock';
 
 function Header() {
   return (
-    <header className="page-header user-page__head">
+    <header className="page-header ">
       <Logo />
       <UserBlock />
     </header>

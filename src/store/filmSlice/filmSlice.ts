@@ -6,19 +6,15 @@ import type { TFilm } from '../../types/film';
 import type { THistory} from '../../types/userData';
 
 export type TInitialState = {
-  films: TFilm[];
   currentGenre: string;
   favorite: TFilm[];
   history: THistory[];
-  currentFilmLoading: boolean;
 };
 
 export const initialState: TInitialState = {
-  films: [],
   currentGenre: DEFAULT_NAME_GENRE,
   favorite: [],
   history: [],
-  currentFilmLoading: false,
 };
 
 export const filmsProcess = createSlice({
@@ -40,6 +36,9 @@ export const filmsProcess = createSlice({
     setHistory: (state, action) => {
       state.history = action.payload;
     },
+    updateHistory: (state, action) => {
+      state.history = [action.payload, ...state.history];
+    },
     clearFavorites: (state) => {
       state.favorite = [];
     },
@@ -54,6 +53,7 @@ export const {
   setFavorites, 
   addFavorites,  
   setHistory, 
+  updateHistory,
   deleteFavorites, 
   clearFavorites, 
   clearHistory,

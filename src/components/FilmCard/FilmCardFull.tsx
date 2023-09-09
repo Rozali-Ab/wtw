@@ -5,7 +5,7 @@ import { AppRoute } from '../../const';
 import { TFilm } from '../../types/film';
 import MyListButton from '../MyListButton/MyListButton';
 import {  useAppSelector } from '../../hooks';
-import { getFavoriteFilms } from '../../store/film-process/selectors';
+import { getFavoriteFilms } from '../../store/filmSlice/selectors';
 
 import FilmCardNavigation from './FilmCardInfo/FilmCardNavigation';
 import FilmCardOverview from './FilmCardInfo/FilmCardOverview';

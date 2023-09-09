@@ -4,7 +4,7 @@ import MyListButton from '../MyListButton/MyListButton';
 import Player from '../Player/Player';
 import { TFilm } from '../../types/film';
 import { useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getAuthorizationStatus } from '../../store/userSlice/selectors';
 import { AuthStatus } from '../../const';
 
 type SmallFilmCardProps = {
@@ -17,13 +17,12 @@ const ImageSize = {
   Height: 175,
 } as const;
 
-function SmallFilmCard({ film }: SmallFilmCardProps) {
+function SmallFilmCard({ film, isFavorite }: SmallFilmCardProps) {
   const {
     id,
     name,
     previewImage,
     previewVideoLink,
-    isFavorite
   } = film;
 
   const authStatus = useAppSelector(getAuthorizationStatus);

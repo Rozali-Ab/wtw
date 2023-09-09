@@ -32,7 +32,7 @@ export function transformResponseToFilm(responseData: any): TFilm[] {
     genre: item.genres?.[0]?.name || '', 
     released: item.year || 0,
     id: item.id || 0,
-    isFavorite: item.isFavorite || false,
+    isFavorite: false,
     videoLink: item.videos?.trailers?.[0]?.url || '', 
     previewVideoLink: item.videos?.teasers?.[0]?.url || '', 
   }));
@@ -59,9 +59,9 @@ export const transformOneFilm = (responseData: any): TFilm => {
     genre: responseData.genres?.[0]?.name || '',
     released: responseData.year || 0,
     id: responseData.id || 0,
-    isFavorite: responseData.isFavorite || false,
+    isFavorite: false,
     videoLink: responseData.videos?.trailers?.[0]?.url || '',
     previewVideoLink: responseData.videos?.teasers?.[0]?.url || '',
   };
-}
+};
 

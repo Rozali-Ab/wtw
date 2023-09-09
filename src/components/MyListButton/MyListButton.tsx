@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addFavorites, deleteFavorites } from '../../store/film-process/film-process';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { addFavorites, deleteFavorites } from '../../store/filmSlice/filmSlice';
+import { getAuthorizationStatus } from '../../store/userSlice/selectors';
 import { AuthStatus } from '../../const';
 
 import './MyListButton.css';
@@ -20,7 +20,7 @@ function MyListButton ({ film, min, className = 'small-film-card__mylist', isFav
   const { id } = film;
 
   const onClickFavorite = (idFilm: number) => {
-    if (isFavorite) {
+    if (isFavorite===true) {
       dispatch(deleteFavorites(idFilm));
       return;
     } 

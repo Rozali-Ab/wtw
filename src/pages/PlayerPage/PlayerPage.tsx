@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { AppRoute, PageTitles } from '../../const';
 
-function PlayerPage() {
+export function PlayerPage() {
   const videoLink = 'https://10.react.pages.academy/static/film/video/bike.mp4';
   const previewImage = 'https://10.react.pages.academy/static/film/preview/legend.jpg';
 
@@ -47,4 +47,3 @@ function PlayerPage() {
   );
 }
 
-export default PlayerPage;

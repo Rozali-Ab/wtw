@@ -7,11 +7,11 @@ import { toast } from 'react-toastify';
 import { useAppDispatch} from '../../hooks';
 import { AppRoute, PageTitles } from '../../const';
 
-import { logIn } from '../../store/user-process/user-process';
-import { setFavorites, setHistory } from '../../store/film-process/film-process';
+import { logIn } from '../../store/userSlice/userSlice';
+import { setFavorites, setHistory } from '../../store/filmSlice/filmSlice';
 import { validateEmail, validatePassword } from '../../utils/utils';
 
-function SignUpPage () {
+export function SignUpPage () {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -95,5 +95,3 @@ function SignUpPage () {
     </Fragment>
   );
 }
-
-export default SignUpPage;
