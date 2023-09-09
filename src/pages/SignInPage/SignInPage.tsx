@@ -1,6 +1,6 @@
 import { FormEvent, Fragment } from 'react';
 import { toast } from 'react-toastify';
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
@@ -8,11 +8,12 @@ import { useAppDispatch } from '../../hooks';
 import { AppRoute, PageTitles } from '../../const';
 import { AuthData } from '../../types/userData';
 import { localStorageUtil } from '../../utils/localStorageUtils/localStorageUtils';
-import { logIn } from '../../store/user-process/user-process';
-import { setFavorites } from '../../store/film-process/film-process';
+import { logIn } from '../../store/userSlice/userSlice';
+import { setFavorites, setHistory } from '../../store/filmSlice/filmSlice';
 
 
-function SignUnPage () {
+export function SignInPage () {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -28,12 +29,13 @@ function SignUnPage () {
         if (userInfo.password === data.password) {
           dispatch(logIn(userInfo));
           dispatch(setFavorites(userInfo?.favorites));
-          <Navigate to={AppRoute.Root}/>;
-        } else toast.error('Wrong password');
+          dispatch(setHistory(userInfo?.history));
+          navigate(AppRoute.Root);
+          toast.success('Successfully');
+        } else toast.warn('Wrong password');
       } else toast.error('Wrong email');
     } else {
       toast.error('User not found');
-      <Navigate to={AppRoute.SignUp}/>;
     }
   };
 
@@ -84,5 +86,3 @@ function SignUnPage () {
     </Fragment>
   );
 }
-
-export default SignUnPage;

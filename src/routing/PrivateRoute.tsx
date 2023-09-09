@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router';
 
-import { localStorageUtil } from '../../utils/localStorageUtils/localStorageUtils';
-import { AppRoute } from '../../const';
+import { localStorageUtil } from '../utils/localStorageUtils/localStorageUtils';
+import { AppRoute } from '../const';
 
 type PrivateRouteProps = {
   children: JSX.Element;

@@ -8,7 +8,7 @@ function ErrorPage () {
       <Helmet>
         <title>{PageTitles.NotFound}</title>
       </Helmet>
-      <div>Page not found</div>
+      <div className="catalog">Page not found</div>
     </>
   );
 }

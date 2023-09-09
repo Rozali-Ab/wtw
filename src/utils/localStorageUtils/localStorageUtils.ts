@@ -1,6 +1,6 @@
 import { TFilm } from '../../types/film';
 
-import type { UserData } from '../../types/userData';
+import type { THistory, UserData } from '../../types/userData';
 
 export const localStorageUtil = {
   getItem: (key: string): UserData | null => {
@@ -40,5 +40,23 @@ export const localStorageUtil = {
         JSON.stringify({...parsedUser, favorites: updateFavorites})
       );
     }
-  }
+  },
+  getSearchHistory: (key: string): THistory[] | null => {
+    const user = localStorage.getItem(key);
+    if (user) {
+      const parsedUserData = JSON.parse(user);
+      return parsedUserData.history;
+    }
+    return null;
+  },
+
+  setSearchHistory: (key: string, history: THistory[]): void => {
+    const user = localStorage.getItem(key);
+    if (user) {
+      const parsedUserData = JSON.parse(user);
+      parsedUserData.history = history;
+      localStorage.setItem(key, JSON.stringify(parsedUserData));
+    }
+  },
+
 };

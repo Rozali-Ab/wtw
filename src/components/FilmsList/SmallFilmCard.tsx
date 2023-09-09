@@ -4,14 +4,11 @@ import MyListButton from '../MyListButton/MyListButton';
 import Player from '../Player/Player';
 import { TFilm } from '../../types/film';
 import { useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getAuthorizationStatus } from '../../store/userSlice/selectors';
 import { AuthStatus } from '../../const';
 
 type SmallFilmCardProps = {
   film: TFilm;
-  playing: boolean;
-  onMouseOver: (id: number) => void;
-  onMouseLeave: () => void;
   isFavorite: boolean;
 }
 
@@ -20,7 +17,7 @@ const ImageSize = {
   Height: 175,
 } as const;
 
-function SmallFilmCard({ film, playing, onMouseOver, onMouseLeave, isFavorite }: SmallFilmCardProps) {
+function SmallFilmCard({ film, isFavorite }: SmallFilmCardProps) {
   const {
     id,
     name,
@@ -33,8 +30,6 @@ function SmallFilmCard({ film, playing, onMouseOver, onMouseLeave, isFavorite }:
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={() => onMouseOver(id)}
-      onMouseLeave={onMouseLeave}
     >
       {authStatus === AuthStatus.Auth? (
         <MyListButton className="small-film-card__mylist" 
@@ -45,16 +40,13 @@ function SmallFilmCard({ film, playing, onMouseOver, onMouseLeave, isFavorite }:
       ) : null
       }
       
-      <Link className="small-film-card__link" to={`/films/${id}`}>
+      <Link className="small-film-card__link" to={`/${id}`}>
         <div className="small-film-card__image">
           <Player
             poster={previewImage}
             src={previewVideoLink}
             width={ImageSize.Width}
             height={ImageSize.Height}
-            playing={playing}
-            loop
-            muted
           />
         </div>
         <h3 className="small-film-card__title">

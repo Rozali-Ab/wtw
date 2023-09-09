@@ -2,8 +2,10 @@ import { createListenerMiddleware } from '@reduxjs/toolkit';
 
 import { localStorageUtil } from '../../utils/localStorageUtils/localStorageUtils';
 import { init } from '../init';
-import { logIn } from '../user-process/user-process';
-import { setFavorites, addFavorites, deleteFavorites, setHistory } from '../film-process/film-process';
+import { searchAction } from '../searchAction';
+import { logIn } from '../userSlice/userSlice';
+import { setFavorites, addFavorites, deleteFavorites, setHistory, updateHistory } from '../filmSlice/filmSlice';
+import { THistory } from '../../types/userData';
 
 const localStorageListener = createListenerMiddleware();
 
@@ -50,5 +52,26 @@ localStorageListener.startListening({
   },
 });
 
+localStorageListener.startListening({
+  actionCreator: searchAction,
+  effect: (action, listenerApi) => {
+    const {user, query} = action.payload;
+    if (user) {
+      if (query === '') {
+        return;
+      }
+      let history = localStorageUtil.getSearchHistory(user.email);
+      if (!history) {
+        history = [];
+      }
+      const historyRecord: THistory = {
+        query,
+      };
+      history.push(historyRecord);
+      localStorageUtil.setSearchHistory(user.email, history);
+      listenerApi.dispatch(updateHistory(historyRecord));
+    }
+  },
+});
 
 export {localStorageListener};
