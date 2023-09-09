@@ -4,8 +4,8 @@ import {  transformResponseToFilm, transformOneFilm } from './tranformResponse';
 
 const BASE_SEARCH_URL = 'https://api.kinopoisk.dev/v1.3/';
 const HEADER_NAME = 'X-API-KEY';
-const HEADER_KEY = 'TDQPASQ-H2C4QBE-Q22NS9H-7F8T1XM';
-//const HEADER_KEY = 'G4DG8Q7-K654AF3-N3478BW-G93839V';
+//const HEADER_KEY = 'TDQPASQ-H2C4QBE-Q22NS9H-7F8T1XM';
+const HEADER_KEY = 'G4DG8Q7-K654AF3-N3478BW-G93839V';
 
 export const filmsApi = createApi({
   reducerPath: 'filmsApi',
