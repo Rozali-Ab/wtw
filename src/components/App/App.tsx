@@ -6,7 +6,6 @@ import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import { useAppDispatch } from '../../hooks';
 import { init } from '../../store/init';
 
-//import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { router } from '../../routing/router';
 
 function App() {
