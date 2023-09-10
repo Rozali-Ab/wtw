@@ -2,23 +2,21 @@
 
 ### Онлайн кинотеатр с самыми интересными фильмами и сериалами
 
-`*Давно хотел посмотреть какой-то фильм? У нас он есть* :partying_face:
+*Давно хотел посмотреть какой-то фильм? У нас он есть* :partying_face:
 
-*Добавляй в избранное, чтобы не потерять!*`
+*Добавляй в избранное, чтобы не потерять!*
 
 
 
 ## Реализованы Требования к функциональности.
-```javascript
-LocalStorage
-```
- для хранения учетных записей пользователей, их Избранного и Истории поиска.
-`
+
+LocalStorage для хранения учетных записей пользователей, их Избранного и Истории поиска.
+
 - [x] **React**
 
-Функциональные компоненты
++ Функциональные компоненты
 
-Разделение на умные и глупые компоненты 
++ Разделение на умные и глупые компоненты 
 
 [Рендеринг списков](https://github.com/Rozali-Ab/wtw/blob/main/src/components/FilmsList/FilmsList.tsx#L42);
 
@@ -37,7 +35,6 @@ https://github.com/Rozali-Ab/wtw/blob/main/src/components/FilmsList/SmallFilmCar
 
 [lazy](https://github.com/Rozali-Ab/wtw/blob/main/src/routing/lazy-routes.tsx)
 [+ Suspense](https://github.com/Rozali-Ab/wtw/blob/main/src/routing/router.tsx#L24);
-`
 
 
 - [x] [**Modern Redux with Redux Toolkit**](https://github.com/Rozali-Ab/wtw/blob/main/src/store/root-reducer.ts)
