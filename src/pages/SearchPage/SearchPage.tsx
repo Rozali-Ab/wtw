@@ -20,13 +20,11 @@ export function SearchPage() {
     setSearchQuery(searchQuery);
   };
 
-  const debouncedSearchQuery = useDebounce(searchQuery, 800);
+  const debouncedSearchQuery = useDebounce(searchQuery, 600);
 
   const onClickSubmit = () => {
-
     setShowSearchList(true); 
     dispatch(searchAction({user, debouncedSearchQuery}));
-    setSearchQuery('');
   };
 
   return (
