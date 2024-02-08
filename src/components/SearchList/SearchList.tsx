@@ -1,7 +1,7 @@
 
 import { toast } from 'react-toastify';
 
-import { useGetFilmByQueryQuery } from '../../api/api';
+import { useGetFilmsQuery } from '../../api/api';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteFilms } from '../../store/filmSlice/selectors';
 import SmallFilmCard from '../FilmsList/SmallFilmCard';
@@ -16,7 +16,7 @@ function SearchList({query}: SearchListProp) {
   const favorites = useAppSelector(getFavoriteFilms);
   const isFavoriteCheck = (id: number) => !!favorites.find((item) => item.id === id);
   
-  const { isLoading, isError, data } = useGetFilmByQueryQuery({name: query, limit: 10});
+  const { isLoading, isError, data } = useGetFilmsQuery({name: query, limit: 10});
   
   if (isLoading) {
     return <Loader />;

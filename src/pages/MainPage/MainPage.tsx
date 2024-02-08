@@ -10,8 +10,9 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Loader from '../../components/Loader/Loader';
 
 export function MainPage() {
-  const page = (Math.floor(Math.random() * 10));
-  const { isLoading, isError, data } = useGetFilmsQuery({limit: 20, page});
+  //const page = (Math.floor(Math.random() * 10));
+  //const { isLoading, isError, data } = useGetFilmsQuery({limit: 20, page});
+  const { isLoading, isError, data } = useGetFilmsQuery({limit: 20});
 
   if (isLoading) {
     return <Loader />;

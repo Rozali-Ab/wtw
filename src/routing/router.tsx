@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+//import { Suspense } from 'react';
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
 import { SignInPage } from '../pages/SignInPage/SignInPage';
@@ -8,7 +8,7 @@ import { SearchPage } from '../pages/SearchPage/SearchPage';
 import { HistoryPage } from '../pages/HistoryPage/HistoryPage';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import Layout from '../components/Layout/Layout';
-import Spinner from '../components/Spinner/Spinner';
+//import Spinner from '../components/Spinner/Spinner';
 import { AppRoute } from '../const';
 
 import PrivateRoute from './PrivateRoute';
@@ -20,10 +20,7 @@ import {
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path={AppRoute.Root} element={
-      <Suspense fallback={<Spinner />}>
-        <Layout />
-      </Suspense>}
+    <Route path={AppRoute.Root} element={<Layout />}
     >
 
       <Route index element={<MainPage />} />
